@@ -1,0 +1,22 @@
+{
+  "name": "e-commerce-server",
+  "version": "1.0.0",
+  "description": "Express server for e-commerce react app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Just9krish/E-commerce.git"
+  },
+  "author": "just9krish",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Just9krish/E-commerce/issues"
+  },
+  "homepage": "https://github.com/Just9krish/E-commerce#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
