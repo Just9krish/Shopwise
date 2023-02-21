@@ -16,7 +16,11 @@ export default function Contact() {
         ></iframe>
 
         <div className="my-16">
-          <form className="max-w-xl mx-auto" action="" method="POST">
+          <form
+            className="max-w-xl mx-auto"
+            action="https://formspree.io/f/xvonabak"
+            method="POST"
+          >
             <div className="mb-6">
               <input
                 className="w-full h-10 px-3 py-1 rounded border border-gray-300"
