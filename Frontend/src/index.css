@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.control-width {
+  width: clamp(90px, 10vw, 200px);
+  /* height: clamp(100px, 15vh, 210px); */
+}

@@ -4,7 +4,7 @@ import menuClose from "../assets/close-icon.svg";
 import menuIcon from "../assets/menu-icon.svg";
 import cartIcon from "../assets/cart-icon.svg";
 import { useState } from "react";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { CgMenu, CgClose } from "react-icons/cg";
 import { AiOutlineClose, AiOutlineShoppingCart } from "react-icons/ai";
 
 export default function Header() {
@@ -20,17 +20,13 @@ export default function Header() {
   return (
     <>
       {/* for mobile navigation */}
-      <header className="bg-white w-full z-40 lg:hidden">
+      <header className="bg-white w-full shadow-md z-40 lg:hidden">
         <div className="flex justify-between items-center px-6 py-4">
           <div
             className="z-40 cursor-pointer "
             onClick={() => setIsOpen(!isOpen)}
           >
-            {isOpen ? (
-              <AiOutlineClose color="white" fontSize="1.25em" />
-            ) : (
-              <GiHamburgerMenu />
-            )}
+            {isOpen ? <CgClose color="white" fontSize="1.25em" /> : <CgMenu />}
           </div>
           <NavLink>
             <img src={logo} className="h-6" alt="Company logo" />
@@ -53,7 +49,11 @@ export default function Header() {
             }`}
           >
             {links.map((link) => (
-              <li className="hover:text-gray-200 transition-all">
+              <li
+                key={link.id}
+                onClick={() => setIsOpen(!isOpen)}
+                className="hover:text-gray-200 transition-all"
+              >
                 <NavLink key={link.id} to={link.path}>
                   {link.name}
                 </NavLink>
@@ -64,7 +64,7 @@ export default function Header() {
       </header>
 
       {/* for desktop navigation */}
-      <header className="hidden lg:block w-full px-28">
+      <header className="hidden lg:block w-full shadow-md px-28">
         <div className="flex justify-between items-center p-6 border-b">
           <NavLink to="/">
             <img src={logo} className="h-7" alt="Logo" />
