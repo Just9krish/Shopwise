@@ -7,8 +7,8 @@ import ReadyToContact from "../components/ReadyToContact";
 
 export default function Trusted() {
   return (
-    <section className="container relative mx-auto px-4">
-      <div className="max-w-6xl mx-auto my-16 mb-40 md:my-48">
+    <section className="container relative py-8 mx-auto">
+      <div className="max-w-6xl mx-auto mb-28 md:mb-32 lg:mb-44">
         <h2 className="text-center capitalize font-bold text-4xl mb-9 md:mb-12">
           Trusted by 500+ Companies
         </h2>
