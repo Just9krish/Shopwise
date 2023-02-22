@@ -4,7 +4,7 @@ import heroImage from "../assets/hero.jpg";
 export default function Hero() {
   return (
     <section className="container mx-auto px-4">
-      <div className="max-w-6xl mx-auto mt-10 md:mt-16">
+      <div className="max-w-6xl mx-auto mp-10 md:mp-16">
         <div className="grid grid-cols-1 place-items-center gap-10 md:grid-cols-2 lg:gap-16">
           <div className="text-center md:text-left">
             <p className="uppercase">Welcome to</p>
@@ -18,7 +18,7 @@ export default function Hero() {
               deserunt asperiores necessitatibus recusandae delectus!
             </p>
             <NavLink to="/products">
-              <button className="bg-orange-500 text-white my-4 px-5 py-2 rounded-md cursor-pointer">
+              <button className="bg-orange-500 text-white my-4 px-5 py-2 rounded-md cursor-pointer  hover:bg-orange-400 transition-all">
                 Shop Now
               </button>
             </NavLink>

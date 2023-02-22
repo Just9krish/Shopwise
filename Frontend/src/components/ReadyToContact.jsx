@@ -7,7 +7,7 @@ export default function ReadyToContact() {
         Ready to be join your family?
       </h1>
       <NavLink to="/products">
-        <button className="bg-orange-500 text-white py-3 px-4 rounded-lg">
+        <button className="bg-orange-500 text-white py-3 px-12 text-lg rounded-3xl hover:bg-orange-400 transition-all">
           Shop Now
         </button>
       </NavLink>

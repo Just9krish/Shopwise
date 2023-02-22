@@ -43,7 +43,7 @@ export default function Footer() {
                 className="rounded-md px-2 py-1 mr-4 text-gray-500"
                 required
               />
-              <button className="bg-orange-500 py-1 px-3.5 rounded-md uppercase hover:bg-orange-300">
+              <button className="bg-orange-500 py-1 px-3.5 rounded-md uppercase hover:bg-orange-400">
                 Subscribe
               </button>
             </form>
@@ -52,19 +52,19 @@ export default function Footer() {
             <h1 className="mb-2 hidden lg:block">Follow us</h1>
             <div className="flex justify-center items-centers mb-6">
               <a
-                className="flex justify-center items-center w-8 h-8 border border-white mr-4 rounded-full p-2 fill-white transition-all hover:border-orange-500 hover:fill-orange-500 hover:-translate-y-1"
+                className="flex justify-center items-center w-8 h-8 border border-white mr-4 rounded-full p-2 text-white transition-all hover:border-orange-500 hover:text-orange-500 hover:-translate-y-1"
                 href="#"
               >
                 <BsTwitter />
               </a>
               <a
-                className="flex justify-center items-center w-8 h-8 border border-white mr-4 rounded-full p-2 fill-white transition-all hover:border-orange-500 hover:fill-orange-500 hover:-translate-y-1"
+                className="flex justify-center items-center w-8 h-8 border border-white mr-4 rounded-full p-2 text-white transition-all hover:border-orange-500 hover:text-orange-500 hover:-translate-y-1"
                 href="#"
               >
                 <FiInstagram />
               </a>
               <a
-                className="flex justify-center items-center w-8 h-8 border border-white rounded-full p-2 fill-white transition-all hover:border-orange-500 hover:fill-orange-500 hover:-translate-y-1"
+                className="flex justify-center items-center w-8 h-8 border border-white rounded-full p-2 text-white transition-all hover:border-orange-500 hover:text-orange-500 hover:-translate-y-1"
                 href="#"
               >
                 <BsYoutube />
