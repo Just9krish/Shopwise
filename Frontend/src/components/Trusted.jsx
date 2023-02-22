@@ -3,11 +3,12 @@ import microsoft from "../assets/company/logo-microsoft.png";
 import hp from "../assets/company/logo-hp.png";
 import ibm from "../assets/company/logo-ibm.png";
 import vectorGraphic from "../assets/company/logo-vector-graphics.png";
+import ReadyToContact from "../components/ReadyToContact";
 
 export default function Trusted() {
   return (
-    <section className="container mx-auto px-4">
-      <div className="max-w-6xl mx-auto my-16 md:my-30">
+    <section className="container relative mx-auto px-4">
+      <div className="max-w-6xl mx-auto my-16 mb-40 md:my-48">
         <h2 className="text-center capitalize font-bold text-4xl mb-9 md:mb-12">
           Trusted by 500+ Companies
         </h2>
@@ -19,6 +20,7 @@ export default function Trusted() {
           <img src={vectorGraphic} alt="vector graphics" />
         </figure>
       </div>
+      <ReadyToContact />
     </section>
   );
 }
