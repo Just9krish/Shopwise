@@ -4,7 +4,7 @@ import heroImage from "../assets/hero.jpg";
 export default function Hero() {
   return (
     <section className="container mx-auto px-4">
-      <div className="max-w-6xl mx-auto mp-10 md:mp-16">
+      <div className="max-w-6xl mx-auto py-10 md:py-16">
         <div className="grid grid-cols-1 place-items-center gap-10 md:grid-cols-2 lg:gap-16">
           <div className="text-center md:text-left">
             <p className="uppercase">Welcome to</p>
