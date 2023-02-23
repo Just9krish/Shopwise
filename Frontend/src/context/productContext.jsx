@@ -1,50 +1,27 @@
 import { createContext, useEffect, useReducer } from "react";
 import axios from "axios";
+import reducer from "../helper/reducer";
 
 export const ProductContext = createContext();
 
-function reducer(state, action) {
-  switch (action.type) {
-    case "SET_LOADING":
-      return { ...state, isLoading: true };
-
-    case "API_ERROR":
-      return {
-        ...state,
-        isLoading: false,
-        isError: true,
-      };
-
-    case "SET_API_DATA":
-      return {
-        ...state,
-        isLoading: false,
-        products: action.payload,
-        featuredProducts: action.payload.filter(
-          (product) => product.featured === true
-        ),
-      };
-
-    default:
-      return {
-        ...state,
-      };
-  }
-}
+const url = import.meta.env.VITE_URL;
 
 const initialState = {
   products: [],
   featuredProducts: [],
   isLoading: false,
   isError: false,
+  isSingleLoading: false,
+  singleProduct: {},
 };
 
 export const ProductContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  async function getData() {
+  async function getData(url) {
+    dispatch({ type: "SET_LOADING" });
     try {
-      const res = await axios.get(import.meta.env.VITE_URL);
+      const res = await axios.get(url);
       const products = res.data;
       dispatch({ type: "SET_API_DATA", payload: products });
     } catch (error) {
@@ -52,13 +29,23 @@ export const ProductContextProvider = ({ children }) => {
     }
   }
 
+  async function getSingleProduct(url) {
+    dispatch({ type: "SET_SINGLE_LOADING" });
+    try {
+      const res = await axios.get(url);
+      const singleProduct = await res.data;
+      dispatch({ type: "SET_SINGLE_PRODUCT", payload: singleProduct });
+    } catch (err) {
+      dispatch({ type: "API_SINGLE_ERROR" });
+    }
+  }
+
   useEffect(() => {
-    dispatch({ type: "SET_LOADING" });
-    getData();
+    getData(url);
   }, []);
 
   return (
-    <ProductContext.Provider value={{ ...state }}>
+    <ProductContext.Provider value={{ ...state, getSingleProduct }}>
       {children}
     </ProductContext.Provider>
   );

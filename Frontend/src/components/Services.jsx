@@ -11,19 +11,19 @@ export default function Services() {
           Our Services
         </h2>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-7">
-          <div className="lg:row-span-2 bg-slate-200 rounded-md p-6 flex justify-center items-center lg:flex-col gap-3">
+          <div className="lg:row-span-2 bg-[#f5f5f5] rounded-md p-6 flex justify-center items-center lg:flex-col gap-3">
             <TbTruckDelivery fontSize="1.5em" color="orange" />
             <p>Super Fast and Free Delivery</p>
           </div>
-          <div className="bg-slate-200 rounded-md p-6 flex justify-center items-center gap-3">
+          <div className="bg-[#f5f5f5] rounded-md p-6 flex justify-center items-center gap-3">
             <BiShieldQuarter fontSize="1.5em" color="orange" />
             <p>Non-contact Shipping</p>
           </div>
-          <div className="lg:row-span-2 bg-slate-200 rounded-md p-6 flex justify-center items-center lg:flex-col gap-3">
+          <div className="lg:row-span-2 bg-[#f5f5f5] rounded-md p-6 flex justify-center items-center lg:flex-col gap-3">
             <GiReceiveMoney fontSize="1.5em" color="orange" />
             <p>Money-back Guraranteed</p>
           </div>
-          <div className="bg-slate-200 rounded-md p-6 flex justify-center items-center gap-3">
+          <div className="bg-[#f5f5f5] rounded-md p-6 flex justify-center items-center gap-3">
             <RiSecurePaymentLine fontSize="1.5em" color="orange" />
             <p>Super Secure Payment System</p>
           </div>
