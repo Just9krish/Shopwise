@@ -9,7 +9,7 @@ export default function Hero() {
           <div className="text-center md:text-left">
             <p className="uppercase">Welcome to</p>
             <h1 className="text-orange-500 text-5xl font-semibold lg:text-6xl">
-              E-Shop
+              E-Shop {import.meta.env.API}
             </h1>
             <p className="mt-4">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut
