@@ -1,7 +1,18 @@
-const express = require("express")
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
 
-const app = express()
+// app
+const app = express();
 
-app.get("/" , (req, res, next) => {
+// port
+const port = process.env.PORT || 3000;
 
-})
+// middleware
+app.use(cors());
+
+// import routes
+const productRoute = require("./routes/product.routes");
+
+// routes
+app.use("/", productRoute);
