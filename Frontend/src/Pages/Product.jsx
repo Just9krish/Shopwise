@@ -23,7 +23,9 @@ export default function Product() {
   }, []);
 
   return isSingleLoading ? (
-    <Loader />
+    <section className="flex justify-center items-center h-screen">
+      <Loader />
+    </section>
   ) : (
     <>
       <Pagination productName={singleProduct.name} />
