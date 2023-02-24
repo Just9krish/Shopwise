@@ -15,7 +15,7 @@ async function getProduct(req, res) {
     const id = req.params.id;
 
     if (!isValid(id)) {
-      res.status(406).json({
+      res.status(404).json({
         success: false,
         message: "Product is not found with given Id",
       });
