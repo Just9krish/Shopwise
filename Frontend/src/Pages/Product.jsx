@@ -28,7 +28,7 @@ export default function Product() {
     <>
       <Pagination productName={singleProduct.name} />
       <section className="container mx-auto px-4">
-        <div className="max-w-6xl mx-auto py-20 md:py-32">
+        <div className="max-w-6xl mx-auto py-14 md:py-16">
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-20">
             <Carousel images={singleProduct.image} />
             <Slider images={singleProduct.image} />
@@ -48,20 +48,20 @@ export default function Product() {
                 </p>
               </div>
               <p className="text-sm mb-8">{singleProduct.description}</p>
-              <div className="grid grid-cols-2 gap-4 mb-8">
-                <div className="flex justify-center items-center flex-col bg-[#f5f5f5] p-4 rounded-md text-sm">
+              <div className="grid grid-cols-2 gap-4 md:gap-10 mb-8">
+                <div className="flex justify-center items-center flex-col bg-[#f5f5f5] p-4 rounded-md text-sm lg:text-base lg:p-6">
                   <TbTruckDelivery />
                   <p>Free Delivery</p>
                 </div>
-                <div className="flex justify-center items-center flex-col bg-[#f5f5f5] p-4 rounded-md text-sm">
+                <div className="flex justify-center items-center flex-col bg-[#f5f5f5] p-4 rounded-md text-sm lg:text-base lg:p-6">
                   <TbReplace />
                   <p>14 Days Return</p>
                 </div>
-                <div className="flex justify-center items-center flex-col bg-[#f5f5f5] p-4 rounded-md text-sm">
+                <div className="flex justify-center items-center flex-col bg-[#f5f5f5] p-4 rounded-md text-sm lg:text-base lg:p-6">
                   <GiQuickMan />
                   <p>Fast Delivery</p>
                 </div>
-                <div className="flex justify-center items-center flex-col bg-[#f5f5f5] p-4 rounded-md text-sm">
+                <div className="flex justify-center items-center flex-col bg-[#f5f5f5] p-4 rounded-md text-sm lg:text-base lg:p-6">
                   <MdSecurity />
                   <p>2 Year Warranty</p>
                 </div>
