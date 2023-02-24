@@ -7,6 +7,8 @@ import { formattedPrice } from "../helper/formatPrice";
 import { TbTruckDelivery, TbReplace } from "react-icons/tb";
 import { MdSecurity } from "react-icons/md";
 import { GiQuickMan } from "react-icons/gi";
+import Slider from "../components/Slider";
+import Loader from "../components/Loader";
 
 export default function Product() {
   const { id } = useParams();
@@ -16,10 +18,12 @@ export default function Product() {
 
   useEffect(() => {
     getSingleProduct(`${url}?id=${id}`);
+
+    window.scrollTo(0, 0);
   }, []);
 
   return isSingleLoading ? (
-    <div>Loading</div>
+    <Loader />
   ) : (
     <>
       <Pagination productName={singleProduct.name} />
@@ -27,6 +31,7 @@ export default function Product() {
         <div className="max-w-6xl mx-auto py-20 md:py-32">
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-20">
             <Carousel images={singleProduct.image} />
+            <Slider images={singleProduct.image} />
             <div>
               <div className="mb-8">
                 <h2 className="text-3xl font-black">{singleProduct.name}</h2>
@@ -43,14 +48,14 @@ export default function Product() {
                 </p>
               </div>
               <p className="text-sm mb-8">{singleProduct.description}</p>
-              <div className="flex justify-between items-center mb-8">
+              <div className="grid grid-cols-2 gap-4 mb-8">
                 <div className="flex justify-center items-center flex-col bg-[#f5f5f5] p-4 rounded-md text-sm">
                   <TbTruckDelivery />
                   <p>Free Delivery</p>
                 </div>
                 <div className="flex justify-center items-center flex-col bg-[#f5f5f5] p-4 rounded-md text-sm">
                   <TbReplace />
-                  <p>14 Days Replacement</p>
+                  <p>14 Days Return</p>
                 </div>
                 <div className="flex justify-center items-center flex-col bg-[#f5f5f5] p-4 rounded-md text-sm">
                   <GiQuickMan />

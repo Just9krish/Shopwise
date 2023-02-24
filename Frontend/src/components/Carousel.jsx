@@ -6,23 +6,29 @@ export default function Carousel({ images }) {
   const [selectImg, setSelectImg] = useState(images[0].id);
 
   return (
-    <div className="flex flex-col lg:justify-between lg:items-center lg:gap-6 ">
-      <div className="lg:w-1/2 flex justify-center mb-6">
+    <div className="hidden lg:flex lg:justify-between lg:items-center lg:gap-10 ">
+      <div className="lg:w-1/4 space-y-5">
         {images.map((image) => (
-          <img
-            src={image.url}
+          <div
             key={image.id}
-            className="w-[150px]"
-            onClick={() => setSelectImg(image.id)}
-            alt=""
-          />
+            className="hover:opacity-40 cursor-pointer w-28 duration-500 hover:border-[2.5px] hover:border-orange-500 hover:bg-orange-500 rounded-lg"
+          >
+            <img
+              src={image.url}
+              className="rounded-lg"
+              onClick={() => setSelectImg(image.id)}
+              alt=""
+            />
+          </div>
         ))}
       </div>
-      <div className="lg:w-1/2 md:w-full">
+      <div className="lg:w-3/4 md:w-full">
         {images.map((image) => (
           <img
             src={image.url}
-            className={`${image.id === selectImg ? "block" : "hidden"}`}
+            className={`${
+              image.id === selectImg ? "block" : "hidden"
+            } rounded-lg`}
             alt=""
           />
         ))}
