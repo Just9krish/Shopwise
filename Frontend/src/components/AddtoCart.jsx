@@ -1,4 +1,3 @@
-import "../styles/additional.css";
 import { useState } from "react";
 import { BsCheck } from "react-icons/bs";
 
@@ -34,7 +33,7 @@ export default function AddtoCart({ product }) {
 
   return (
     <div className="flex items-center gap-6">
-      <p>Select a color:</p>
+      <p className="font-light">Select a color:</p>
       <div className="flex gap-4">
         {colors.map((color) => (
           <div key={id}>

@@ -22,6 +22,9 @@ const productSchema = new Schema({
     type: String,
     required: true,
   },
+  rating: String,
+
+  reviews: String,
 });
 
 module.exports = mongoose.model("product", productSchema);
