@@ -11,7 +11,7 @@ export default function Carousel({ images }) {
         {images.map((image) => (
           <div
             key={image.id}
-            className="hover:opacity-40 cursor-pointer w-28 duration-500 hover:border-[2.5px] hover:border-orange-500 hover:bg-orange-500 rounded-lg"
+            className="hover:opacity-40 cursor-pointer w-28 duration-500 border-[2.5px] border-transparent hover:border-[2.5px] hover:border-orange-500 hover:bg-orange-500 rounded-lg"
           >
             <img
               src={image.url}

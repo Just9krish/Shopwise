@@ -1,0 +1,48 @@
+.color-label {
+  position: relative;
+  cursor: pointer;
+  font-size: 20px;
+  user-select: none;
+  display: block;
+}
+
+.color-input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.color-checkmark {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 1.2em;
+  width: 1.2em;
+  border-radius: 50%;
+}
+
+/* .color-label input:checked ~ .color-checkmark {
+  background-color: seagreen;
+} */
+
+.color-checkmark::after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.color-label input:checked ~ .color-checkmark::after {
+  display: block;
+}
+
+.color-label .color-checkmark::after {
+  left: 0.45em;
+  top: 0.25em;
+  width: 0.25em;
+  height: 0.5em;
+  border: solid white;
+  border-width: 0 0.15em 0.15em 0;
+  transform: rotate(45deg);
+}

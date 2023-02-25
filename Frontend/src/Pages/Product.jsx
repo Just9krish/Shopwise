@@ -10,6 +10,7 @@ import { GiQuickMan } from "react-icons/gi";
 import Slider from "../components/Slider";
 import Loader from "../components/Loader";
 import Star from "../components/Star";
+import AddtoCart from "../components/AddtoCart";
 
 export default function Product() {
   const { id } = useParams();
@@ -53,7 +54,7 @@ export default function Product() {
                 </p>
               </div>
               <p className="text-sm mb-8">{singleProduct.description}</p>
-              <div className="grid grid-cols-2 gap-4 md:gap-8 mb-6">
+              <div className="grid grid-cols-2 gap-4 md:gap-6 mb-6">
                 <div className="flex justify-center items-center flex-col bg-[#f5f5f5] p-4 rounded-md text-sm lg:text-base lg:p-6">
                   <TbTruckDelivery />
                   <p>Free Delivery</p>
@@ -80,6 +81,18 @@ export default function Product() {
                 </p>
                 <p className="text-sm">Brand: {singleProduct.company}</p>
                 <p className="text-sm">Product id: {singleProduct.id}</p>
+              </div>
+              <hr className="max-w-full w-[90%] my-8" />
+              <div>
+                {singleProduct.stock < 0 ? (
+                  <div>
+                    <p className="text-red-600 font-bold text-2xl">
+                      Out of stock currently
+                    </p>
+                  </div>
+                ) : (
+                  <AddtoCart product={singleProduct} />
+                )}
               </div>
             </div>
           </div>
