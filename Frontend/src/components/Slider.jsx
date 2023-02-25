@@ -25,7 +25,11 @@ export default function Slider({ images }) {
       >
         {images.map((image) => (
           <div key={image.id} className="w-[100vw]">
-            <img src={image.url} className="object-center" alt="" />{" "}
+            <img
+              src={image.url}
+              className="object-center"
+              alt={image.filename}
+            />{" "}
           </div>
         ))}
       </div>

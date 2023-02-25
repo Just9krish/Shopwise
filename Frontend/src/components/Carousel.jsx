@@ -17,7 +17,7 @@ export default function Carousel({ images }) {
               src={image.url}
               className="rounded-lg"
               onClick={() => setSelectImg(image.id)}
-              alt=""
+              alt={image.filename}
             />
           </div>
         ))}
@@ -29,7 +29,7 @@ export default function Carousel({ images }) {
             className={`${
               image.id === selectImg ? "block" : "hidden"
             } rounded-lg`}
-            alt=""
+            alt={image.filename}
           />
         ))}
       </div>
