@@ -1,46 +1,55 @@
 import { useState } from "react";
-import { BsCheck } from "react-icons/bs";
+import { NavLink } from "react-router-dom";
+import { TiPlus, TiMinus } from "react-icons/ti";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
-export default function AddtoCart({ product }) {
-  if (Object.keys(product).length == 0) {
-    return;
+export default function AddtoCart() {
+  const [quantity, setQuantity] = useState(1);
+
+  const maxQuantity = 4;
+  const minQuantity = 1;
+
+  function increment() {
+    if (quantity < maxQuantity) {
+      setQuantity((prev) => prev + 1);
+    } else {
+      setQuantity(maxQuantity);
+    }
   }
 
-  const { id, colors, stock } = product;
-  const [selectedColor, setSelectedColor] = useState(null);
-
-  function handleColorClick(color) {
-    setSelectedColor(color);
+  function decrement() {
+    if (quantity > minQuantity) {
+      setQuantity((prev) => prev - 1);
+    } else {
+      setQuantity(minQuantity);
+    }
   }
-
-  const ColorSquare = ({ color, selected }) => (
-    <div
-      className={`w-6 h-6 rounded-full cursor-pointer relative ${
-        selected ? "opacity-100" : "opacity-70"
-      }`}
-      style={{
-        backgroundColor: color,
-      }}
-      onClick={() => handleColorClick(color)}
-    >
-      {selected && (
-        <div className="absolute top-0 left-0 bottom-0 right-0 text-white flex justify-center items-center">
-          <BsCheck />
-        </div>
-      )}
-    </div>
-  );
 
   return (
-    <div className="flex items-center gap-6">
-      <p className="font-light">Select a color:</p>
-      <div className="flex gap-4">
-        {colors.map((color) => (
-          <div key={id}>
-            <ColorSquare color={color} selected={selectedColor === color} />
-          </div>
-        ))}
+    <div className="flex items-center lg:space-x-4 mt-4">
+      <div className="flex items-center justify-between w-36 bg-[#f7f8fd] py-6 px-4 rounded-lg h-6">
+        <button
+          className="p-2 text-orange-500"
+          disabled={quantity <= minQuantity}
+          onClick={decrement}
+        >
+          <TiMinus />
+        </button>
+        <p className="font-semibold">{quantity}</p>
+        <button
+          className="p-2 text-orange-500"
+          disabled={quantity >= maxQuantity}
+          onClick={increment}
+        >
+          <TiPlus />
+        </button>
       </div>
+      <NavLink to="/cart">
+        <button className="flex items-center justify-center rounded-lg text-white h-10 lg:w-52 bg-orange-500">
+          <AiOutlineShoppingCart />
+          <span className="ml-2">Add to cart</span>
+        </button>
+      </NavLink>
     </div>
   );
 }

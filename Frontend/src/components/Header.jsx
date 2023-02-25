@@ -1,11 +1,9 @@
 import { NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
-import menuClose from "../assets/close-icon.svg";
-import menuIcon from "../assets/menu-icon.svg";
 import cartIcon from "../assets/cart-icon.svg";
 import { useState } from "react";
 import { CgMenu, CgClose } from "react-icons/cg";
-import { AiOutlineClose, AiOutlineShoppingCart } from "react-icons/ai";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
 export default function Header() {
   const links = [
