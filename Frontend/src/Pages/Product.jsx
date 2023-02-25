@@ -9,6 +9,7 @@ import { MdSecurity } from "react-icons/md";
 import { GiQuickMan } from "react-icons/gi";
 import Slider from "../components/Slider";
 import Loader from "../components/Loader";
+import Star from "../components/Star";
 
 export default function Product() {
   const { id } = useParams();
@@ -35,12 +36,14 @@ export default function Product() {
             <Carousel images={singleProduct.image} />
             <Slider images={singleProduct.image} />
             <div>
-              <div className="mb-8">
+              <div className="mb-6">
                 <h2 className="text-3xl font-black">{singleProduct.name}</h2>
-                <p className="text-lg">{singleProduct.stars} stars</p>
-                <p className="text-lg ">{singleProduct.reviews} reviews</p>
+                <Star
+                  stars={singleProduct.stars}
+                  reviews={singleProduct.reviews}
+                />
               </div>
-              <div className="mb-8">
+              <div className="mb-6">
                 <p className="text-gray-400">
                   MRP:
                   <del>{formattedPrice(singleProduct.price + 250000)}</del>
@@ -50,7 +53,7 @@ export default function Product() {
                 </p>
               </div>
               <p className="text-sm mb-8">{singleProduct.description}</p>
-              <div className="grid grid-cols-2 gap-4 md:gap-10 mb-8">
+              <div className="grid grid-cols-2 gap-4 md:gap-8 mb-6">
                 <div className="flex justify-center items-center flex-col bg-[#f5f5f5] p-4 rounded-md text-sm lg:text-base lg:p-6">
                   <TbTruckDelivery />
                   <p>Free Delivery</p>
@@ -69,7 +72,7 @@ export default function Product() {
                 </div>
               </div>
               <div>
-                <p className="mb-8">
+                <p className="mb-6">
                   Available:{" "}
                   <span className="text-green-700 font-semibold">
                     {singleProduct.stock > 0 ? "Available" : "Not-Available"}
