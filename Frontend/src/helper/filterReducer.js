@@ -7,6 +7,12 @@ export default function filterReducer(state, action) {
         all_products: [...action.payload],
       };
 
+    case "SET_LAYOUT":
+      return {
+        ...state,
+        grid_view: true,
+      };
+
     default:
       return state;
   }
