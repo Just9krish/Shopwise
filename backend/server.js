@@ -8,7 +8,7 @@ const app = express();
 
 // port & db string
 const port = process.env.PORT || 3000;
-const dbPath = process.env.PATH || "mongodb://127.0.0.1:27017:ecommerce";
+const dbPath = process.env.DBPATH || "mongodb://127.0.0.1:27017:ecommerce";
 
 // middleware
 app.use(cors());
