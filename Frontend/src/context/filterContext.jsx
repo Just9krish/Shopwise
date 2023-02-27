@@ -15,15 +15,20 @@ export const FilterContextProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const setLayout = () => {
-    return dispatch({ type: "SET_LAYOUT" });
+  const setGridLayout = () => {
+    return dispatch({ type: "SET_GRID_LAYOUT" });
   };
+
+  const setListLayout = () => {
+    return dispatch({ type: "SET_LIST_LAYOUT" });
+  };
+
   useEffect(() => {
     dispatch({ type: "LOAD_FILTER_PRODUCT", payload: products });
   }, [products]);
 
   return (
-    <FilterContext.Provider value={{ ...state, setLayout }}>
+    <FilterContext.Provider value={{ ...state, setGridLayout, setListLayout }}>
       {children}
     </FilterContext.Provider>
   );

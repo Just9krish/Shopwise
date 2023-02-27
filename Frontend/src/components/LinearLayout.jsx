@@ -6,10 +6,14 @@ export default function LinearLayout({ filterProduct }) {
   return (
     <div className="space-y-6">
       {filterProduct.map((product) => (
-        <NavLink to={`/products/${product.id}`} className="block">
+        <NavLink
+          to={`/products/${product.id}`}
+          key={product.id}
+          className="block"
+        >
           <div className="flex gap-8 border-2 border-orange-400 shadow-lg p-4 rounded-lg transition-all duration-200">
             <div className="w-2/5 rounded-lg overflow-hidden">
-              <img src={product.image} alt={product.id} />
+              <img src={product.image} alt={product.name} />
             </div>
             <div className="w-2/4 space-y-3">
               <div className="flex justify-between items-center">
