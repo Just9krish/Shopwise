@@ -3,9 +3,11 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import useFilterContext from "../hooks/useFilterContext";
 
 export default function Sort() {
-  const { setGridLayout, setListLayout, grid_view } = useFilterContext();
+  const { setGridLayout, setListLayout, grid_view, filter_products, sorting } =
+    useFilterContext();
+
   return (
-    <div className="flex justify-between mb-10">
+    <div className="flex justify-between items-center mb-10">
       <div className="flex gap-5">
         <button
           onClick={setGridLayout}
@@ -24,12 +26,22 @@ export default function Sort() {
           <GiHamburgerMenu />
         </button>
       </div>
-      <p>3 total proudcts</p>
-      <div>
-        <select name="price" id="price">
-          <option value="">1000</option>
+      <p className="font-light ">{filter_products.length} Products Available</p>
+      <form action="" className="mb-3">
+        <select
+          name="sort"
+          onClick={sorting}
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full focus:ring-blue-500 focus:border-blue-500 p-2.5"
+          id="sort"
+        >
+          <option value="" disabled>
+            Select option to sort the products
+          </option>
+          <option value="random">Random</option>
+          <option value="ltoh">Lowest to Highest (price)</option>
+          <option value="htol">Highest to Lowest (price)</option>
         </select>
-      </div>
+      </form>
     </div>
   );
 }
