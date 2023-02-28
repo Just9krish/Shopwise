@@ -24,8 +24,8 @@ export const FilterContextProvider = ({ children }) => {
     return dispatch({ type: "SET_LIST_LAYOUT" });
   };
 
-  const sorting = () => {
-    dispatch({ type: "GET_SORT_VALUE" });
+  const sorting = (e) => {
+    dispatch({ type: "GET_SORT_VALUE", payload: e.target.value });
   };
 
   useEffect(() => {
