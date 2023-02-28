@@ -70,9 +70,14 @@ export default function Header() {
           <div className="flex items-center space-x-8">
             {links.map((link) => (
               <NavLink
-                className="block relative hover:after:absolute after:top-12 after:h-1 after:inset-x-0 after:w-full after:bg-orange-500 after:transition-all after:duration-300"
+                className={({ isActive }) =>
+                  !isActive
+                    ? "block relative hover:after:absolute after:top-12 after:h-1 after:inset-x-0 after:w-full after:bg-orange-500 after:transition-all after:duration-300"
+                    : "text-orange-500 relative after:absolute after:top-12 after:h-1 after:inset-x-0 after:w-full after:bg-orange-500 after:transition-all after:duration-300"
+                }
                 key={link.id}
                 to={link.path}
+                onClick={() => setActiveNavLink(link.path)}
               >
                 {link.name}
               </NavLink>
