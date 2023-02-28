@@ -31,7 +31,7 @@ export default function Sort() {
         <select
           name="sort"
           onClick={sorting}
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full focus:ring-blue-500 focus:border-blue-500 p-2.5"
+          className="bg-gray-50 border cursor-pointer border-gray-300 text-gray-900 text-sm rounded-lg w-full focus:ring-blue-500 focus:border-blue-500 p-2.5"
           id="sort"
         >
           <option value="" disabled selected>

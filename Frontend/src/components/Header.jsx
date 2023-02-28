@@ -77,7 +77,6 @@ export default function Header() {
                 }
                 key={link.id}
                 to={link.path}
-                onClick={() => setActiveNavLink(link.path)}
               >
                 {link.name}
               </NavLink>

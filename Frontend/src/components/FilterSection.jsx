@@ -59,7 +59,7 @@ export default function FilterSection() {
                 : ""
             }`}
           >
-            {category}
+            {(category = category.charAt(0).toUpperCase() + category.slice(1))}
           </button>
         ))}
       </div>
@@ -70,13 +70,13 @@ export default function FilterSection() {
         </label>
         <select
           name="company"
-          className="bg-gray-50 border pl-4 border-gray-300 text-orange-500 text-sm rounded-md w-full focus:ring-blue-500 focus:border-blue-500 p-2"
+          className="bg-gray-50 border cursor-pointer pl-4 border-gray-300 text-gray-900 text-sm rounded-md w-full focus:ring-blue-500 focus:border-blue-500 p-2 transition-all"
           onChange={setFilterValue}
           id="companies"
         >
           {companies?.map((company, idx) => (
             <option value={company} name="company" key={idx}>
-              {company}
+              {(company = company.charAt(0).toUpperCase() + company.slice(1))}
             </option>
           ))}
         </select>
