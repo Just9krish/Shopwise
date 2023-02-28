@@ -9,6 +9,9 @@ const initialState = {
   all_products: [],
   grid_view: true,
   sort_value: "random",
+  filters: {
+    filterText: "",
+  },
 };
 
 export const FilterContextProvider = ({ children }) => {
@@ -28,9 +31,16 @@ export const FilterContextProvider = ({ children }) => {
     dispatch({ type: "GET_SORT_VALUE", payload: e.target.value });
   };
 
+  function setFilterValue(e) {
+    const name = e.target.name;
+    const value = e.target.value;
+    dispatch({ type: "UPDATE_FILTER_TEXT", payload: { name, value } });
+  }
+
   useEffect(() => {
-    dispatch({ type: "SORT_PRODUCTS", payload: products });
-  }, [state.sort_value]);
+    dispatch({ type: "FILTER_PRODUCTS" });
+    dispatch({ type: "SORT_PRODUCTS" });
+  }, [state.sort_value, state.filters]);
 
   useEffect(() => {
     dispatch({ type: "LOAD_FILTER_PRODUCTS", payload: products });
@@ -38,7 +48,13 @@ export const FilterContextProvider = ({ children }) => {
 
   return (
     <FilterContext.Provider
-      value={{ ...state, setGridLayout, setListLayout, sorting }}
+      value={{
+        ...state,
+        setGridLayout,
+        setListLayout,
+        sorting,
+        setFilterValue,
+      }}
     >
       {children}
     </FilterContext.Provider>

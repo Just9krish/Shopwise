@@ -28,7 +28,8 @@ export default function filterReducer(state, action) {
       };
 
     case "SORT_PRODUCTS":
-      const products = [...action.payload];
+      const { filter_products } = state;
+      const products = [...filter_products];
       // let sortedProduct;
 
       // if (state.sort_value == "random") {
@@ -54,6 +55,33 @@ export default function filterReducer(state, action) {
       return {
         ...state,
         filter_products: sortedProduct,
+      };
+
+    case "UPDATE_FILTER_TEXT":
+      const { name, value } = action.payload;
+      console.log(name, value);
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          [name]: value,
+        },
+      };
+
+    case "FILTER_PRODUCTS":
+      let temp = [...state.all_products];
+
+      const { filterText } = state.filters;
+
+      if (filterText) {
+        temp = temp.filter((product) =>
+          product.name.toLowerCase().includes(filterText)
+        );
+      }
+
+      return {
+        ...state,
+        filter_products: temp,
       };
 
     default:
