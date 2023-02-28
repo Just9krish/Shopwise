@@ -1,3 +1,4 @@
+import { useState } from "react";
 import useFilterContext from "../hooks/useFilterContext";
 
 export default function FilterSection() {
@@ -7,19 +8,27 @@ export default function FilterSection() {
     all_products,
   } = useFilterContext();
 
+  const [activeButton, setActiveButton] = useState("All");
+
+  function handleClick(e, category) {
+    setActiveButton(category);
+    setFilterValue(e);
+  }
+
   function getUniqueProductProp(data, query) {
     const propArr = data.map((product) => product[query]);
     return ["All", ...new Set(propArr)];
   }
 
-  const categorys = getUniqueProductProp(all_products, "category");
+  const categories = getUniqueProductProp(all_products, "category");
+  const companies = getUniqueProductProp(all_products, "company");
 
   return (
-    <div className="">
-      <div class="flex rounded border-2">
-        <div class="flex items-center justify-center px-4 border-r">
+    <div className="space-y-8 px-4 py-2 border shadow-md">
+      <div className="flex rounded border-2 items-center">
+        <div className="flex items-center justify-center px-2.5 border-r">
           <svg
-            class="w-6 h-6 text-gray-600"
+            className="w-6 h-6 text-orange-500"
             fill="currentColor"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -32,14 +41,45 @@ export default function FilterSection() {
           value={filterText}
           onChange={setFilterValue}
           name="filterText"
-          class="px-3 py-1 w-full"
+          className="px-3 py-1 w-full"
           placeholder="Search..."
         />
       </div>
       <div className="flex flex-col">
-        {categorys.map((category) => (
-          <button>{category}</button>
+        <p className="mb-3">Categories</p>
+        {categories?.map((category, idx) => (
+          <button
+            key={idx}
+            name="category"
+            onClick={(e) => handleClick(e, category)}
+            value={category}
+            className={`mb-2 text-left pl-4 text-sm py-1 font-medium ${
+              activeButton == category
+                ? "border-b border-orange-500 text-orange-500"
+                : ""
+            }`}
+          >
+            {category}
+          </button>
         ))}
+      </div>
+
+      <div>
+        <label htmlFor="companies" className="mb-3 block">
+          Companies
+        </label>
+        <select
+          name="company"
+          className="bg-gray-50 border pl-4 border-gray-300 text-orange-500 text-sm rounded-md w-full focus:ring-blue-500 focus:border-blue-500 p-2"
+          onChange={setFilterValue}
+          id="companies"
+        >
+          {companies?.map((company, idx) => (
+            <option value={company} name="company" key={idx}>
+              {company}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   );

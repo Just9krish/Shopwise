@@ -11,6 +11,8 @@ const initialState = {
   sort_value: "random",
   filters: {
     filterText: "",
+    category: "all",
+    company: "all",
   },
 };
 

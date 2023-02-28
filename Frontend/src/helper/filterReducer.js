@@ -60,6 +60,7 @@ export default function filterReducer(state, action) {
     case "UPDATE_FILTER_TEXT":
       const { name, value } = action.payload;
       console.log(name, value);
+
       return {
         ...state,
         filters: {
@@ -71,11 +72,23 @@ export default function filterReducer(state, action) {
     case "FILTER_PRODUCTS":
       let temp = [...state.all_products];
 
-      const { filterText } = state.filters;
+      const { filterText, category, company } = state.filters;
 
       if (filterText) {
         temp = temp.filter((product) =>
-          product.name.toLowerCase().includes(filterText)
+          product.name.toLowerCase().includes(filterText.toLowerCase())
+        );
+      }
+
+      if (category.toLowerCase() != "all") {
+        temp = temp.filter(
+          (product) => product.category.toLowerCase() == category.toLowerCase()
+        );
+      }
+
+      if (company.toLowerCase() != "all") {
+        temp = temp.filter(
+          (product) => product.company.toLowerCase() == company.toLowerCase()
         );
       }
 
