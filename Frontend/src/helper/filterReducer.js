@@ -71,26 +71,56 @@ export default function filterReducer(state, action) {
 
     case "FILTER_PRODUCTS":
       let temp = [...state.all_products];
-
       const { filterText, category, company } = state.filters;
 
-      if (filterText) {
-        temp = temp.filter((product) =>
-          product.name.toLowerCase().includes(filterText.toLowerCase())
-        );
-      }
+      // if (filterText) {
+      //   temp = temp.filter((product) =>
+      //     product.name.toLowerCase().includes(filterText.toLowerCase())
+      //   );
+      // }
 
-      if (category.toLowerCase() != "all") {
-        temp = temp.filter(
-          (product) => product.category.toLowerCase() == category.toLowerCase()
-        );
-      }
+      // if (category.toLowerCase() != "all") {
+      //   temp = temp.filter(
+      //     (product) => product.category.toLowerCase() == category.toLowerCase()
+      //   );
+      // }
 
-      if (company.toLowerCase() != "all") {
-        temp = temp.filter(
-          (product) => product.company.toLowerCase() == company.toLowerCase()
-        );
-      }
+      // if (company.toLowerCase() != "all") {
+      //   temp = temp.filter(
+      //     (product) => product.company.toLowerCase() == company.toLowerCase()
+      //   );
+      // }
+
+      // To make the code more DRY, we can refactor it to use
+      // a single filter function instead of repeating the filtering logic multiple times.
+
+      const filterProduct = (product) => {
+        let filterResult = true;
+
+        if (filterText) {
+          filterResult =
+            filterResult &&
+            product.name.toLowerCase().includes(filterText.toLowerCase());
+        }
+        if (category.toLowerCase() !== "all") {
+          filterResult =
+            filterResult &&
+            product.category.toLowerCase() === category.toLowerCase();
+        }
+        if (company.toLowerCase() !== "all") {
+          filterResult =
+            filterResult &&
+            product.company.toLowerCase() === company.toLowerCase();
+        }
+
+        return filterResult;
+      };
+
+      // The function uses the same filtering conditions as the original code,
+      //but checks each condition against the product using the "&&" operator.
+      //This ensures that all conditions must be true for the product to be included in the result.
+
+      temp = temp.filter(filterProduct);
 
       return {
         ...state,
