@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { BsCheck } from "react-icons/bs";
 import ColorPicker from "./ColorPicker";
+import { formattedPrice } from "../helper/formatPrice";
 import useFilterContext from "../hooks/useFilterContext";
 
 export default function FilterSection() {
   const {
-    filters: { filterText },
+    filters: { filterText, maxPrice, minPrice, price },
     setFilterValue,
     all_products,
+    clearFilters,
   } = useFilterContext();
 
   const [activeCategoryButton, setActiveCategoryButton] = useState("all");
@@ -104,23 +105,30 @@ export default function FilterSection() {
         </select>
       </div>
 
-      {/* <div>
-        <p>Colors: </p>
-        <div className="space-x-3">
-          <div className="flex gap-4">
-            {colors?.map((color, idx) => (
-              <div key={idx}>
-                <ColorSquare color={color} selected={selectedColor === color} />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div> */}
       <ColorPicker
         setFilterValue={setFilterValue}
         style={true}
         colors={colors}
       />
+
+      <div>
+        <label htmlFor="price">price</label>
+        <p>{formattedPrice(price)}</p>
+        <input
+          type="range"
+          id="price"
+          min={minPrice}
+          name="price"
+          max={maxPrice}
+          value={price}
+          step="10"
+          onChange={setFilterValue}
+        />
+      </div>
+
+      <div>
+        <button onClick={clearFilters}>Clear Filter</button>
+      </div>
     </div>
   );
 }

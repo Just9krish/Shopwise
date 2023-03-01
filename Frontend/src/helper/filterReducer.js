@@ -1,10 +1,19 @@
 export default function filterReducer(state, action) {
   switch (action.type) {
     case "LOAD_FILTER_PRODUCTS":
+      const prices = action.payload.map((product) => product.price);
+
+      const maxPrice = Math.max(...prices);
+      console.log(maxPrice);
       return {
         ...state,
         filter_products: [...action.payload],
         all_products: [...action.payload],
+        filters: {
+          ...state.filters,
+          maxPrice: maxPrice,
+          price: maxPrice,
+        },
       };
 
     case "SET_GRID_LAYOUT":
@@ -70,7 +79,7 @@ export default function filterReducer(state, action) {
 
     case "FILTER_PRODUCTS":
       let temp = [...state.all_products];
-      const { filterText, category, company, color } = state.filters;
+      const { filterText, category, company, color, price } = state.filters;
 
       if (filterText) {
         temp = temp.filter((product) =>
@@ -90,45 +99,35 @@ export default function filterReducer(state, action) {
         );
       }
 
-      console.log(color);
       if (color !== "all") {
         temp = temp.filter((product) => product.colors.includes(color));
       }
 
-      // To make the code more DRY, we can refactor it to use
-      // a single filter function instead of repeating the filtering logic multiple times.
+      if (price === 0) {
+        temp = temp.filter((product) => product.price == price);
+      } else {
+        temp = temp.filter((product) => product.price <= price);
+      }
 
-      // const filterProduct = (product) => {
-      //   let filterResult = true;
-
-      //   if (filterText) {
-      //     filterResult =
-      //       filterResult &&
-      //       product.name.toLowerCase().includes(filterText.toLowerCase());
-      //   }
-      //   if (category.toLowerCase() !== "all") {
-      //     filterResult =
-      //       filterResult &&
-      //       product.category.toLowerCase() === category.toLowerCase();
-      //   }
-      //   if (company.toLowerCase() !== "all") {
-      //     filterResult =
-      //       filterResult &&
-      //       product.company.toLowerCase() === company.toLowerCase();
-      //   }
-
-      //   return filterResult;
-      // };
-
-      // The function uses the same filtering conditions as the original code,
-      //but checks each condition against the product using the "&&" operator.
-      //This ensures that all conditions must be true for the product to be included in the result.
-
-      // temp = temp.filter(filterProduct);
       console.log(state.filters);
       return {
         ...state,
         filter_products: temp,
+      };
+
+    case "CLEAR_FILTERS":
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          filterText: "",
+          category: "all",
+          company: "all",
+          color: "all",
+          price: state.filters.maxPrice,
+          maxPrice: 0,
+          minPrice: state.filters.maxPrice,
+        },
       };
 
     default:

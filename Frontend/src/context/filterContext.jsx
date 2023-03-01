@@ -14,6 +14,9 @@ const initialState = {
     category: "all",
     company: "all",
     color: "all",
+    price: 0,
+    maxPrice: 0,
+    minPrice: 0,
   },
 };
 
@@ -40,6 +43,10 @@ export const FilterContextProvider = ({ children }) => {
     dispatch({ type: "UPDATE_FILTER_TEXT", payload: { name, value } });
   }
 
+  function clearFilters() {
+    dispatch({ type: "CLEAR_FILTERS" });
+  }
+
   useEffect(() => {
     dispatch({ type: "FILTER_PRODUCTS" });
     dispatch({ type: "SORT_PRODUCTS" });
@@ -57,6 +64,7 @@ export const FilterContextProvider = ({ children }) => {
         setListLayout,
         sorting,
         setFilterValue,
+        clearFilters,
       }}
     >
       {children}
