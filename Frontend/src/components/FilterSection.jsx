@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { BsCheck } from "react-icons/bs";
+import ColorPicker from "./ColorPicker";
 import useFilterContext from "../hooks/useFilterContext";
 
 export default function FilterSection() {
@@ -8,23 +10,43 @@ export default function FilterSection() {
     all_products,
   } = useFilterContext();
 
-  const [activeButton, setActiveButton] = useState("All");
+  const [activeCategoryButton, setActiveCategoryButton] = useState("all");
 
   function handleClick(e, category) {
-    setActiveButton(category);
+    setActiveCategoryButton(category);
     setFilterValue(e);
   }
 
-  function getUniqueProductProp(data, query) {
-    const propArr = data.map((product) => product[query]);
-    return ["All", ...new Set(propArr)];
+  function getUniqueProductProp(data, prop) {
+    const propArr = data.map((product) => product[prop]);
+
+    if (prop === "colors") {
+      // return ["all", ...new Set([].concat(...propArr))];
+      return ["all", ...new Set(propArr.flat())];
+    } else {
+      return ["all", ...new Set(propArr)];
+    }
   }
+
+  // function getUniqueProductProp(data, prop) {
+  //   return data.reduce(
+  //     (uniqueProps, product) => {
+  //       const propValue = product[prop];
+  //       if (!uniqueProps.includes(propValue)) {
+  //         uniqueProps.push(propValue);
+  //       }
+  //       return uniqueProps;
+  //     },
+  //     ["All"]
+  //   );
+  // }
 
   const categories = getUniqueProductProp(all_products, "category");
   const companies = getUniqueProductProp(all_products, "company");
+  const colors = getUniqueProductProp(all_products, "colors");
 
   return (
-    <div className="space-y-8 px-4 py-2 border shadow-md">
+    <div className="space-y-8 px-4 pt-2 pb-8 border shadow-md">
       <div className="flex rounded border-2 items-center">
         <div className="flex items-center justify-center px-2.5 border-r">
           <svg
@@ -46,7 +68,7 @@ export default function FilterSection() {
         />
       </div>
       <div className="flex flex-col">
-        <p className="mb-3">Categories</p>
+        <p className="mb-3 font-light">Categories</p>
         {categories?.map((category, idx) => (
           <button
             key={idx}
@@ -54,18 +76,18 @@ export default function FilterSection() {
             onClick={(e) => handleClick(e, category)}
             value={category}
             className={`mb-2 text-left pl-4 text-sm py-1 font-medium ${
-              activeButton == category
+              activeCategoryButton == category
                 ? "border-b border-orange-500 text-orange-500"
                 : ""
             }`}
           >
-            {(category = category.charAt(0).toUpperCase() + category.slice(1))}
+            {category.charAt(0).toUpperCase() + category.slice(1)}
           </button>
         ))}
       </div>
 
       <div>
-        <label htmlFor="companies" className="mb-3 block">
+        <label htmlFor="companies" className="mb-3 block font-light">
           Companies
         </label>
         <select
@@ -81,6 +103,24 @@ export default function FilterSection() {
           ))}
         </select>
       </div>
+
+      {/* <div>
+        <p>Colors: </p>
+        <div className="space-x-3">
+          <div className="flex gap-4">
+            {colors?.map((color, idx) => (
+              <div key={idx}>
+                <ColorSquare color={color} selected={selectedColor === color} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div> */}
+      <ColorPicker
+        setFilterValue={setFilterValue}
+        style={true}
+        colors={colors}
+      />
     </div>
   );
 }

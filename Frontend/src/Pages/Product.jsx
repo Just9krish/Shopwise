@@ -93,7 +93,7 @@ export default function Product() {
                   </div>
                 ) : (
                   <>
-                    <ColorPicker product={singleProduct} />
+                    <ColorPicker colors={singleProduct.colors} style={false} />
                     <AddtoCart product={singleProduct} />
                   </>
                 )}

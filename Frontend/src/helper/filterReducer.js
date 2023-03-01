@@ -59,7 +59,6 @@ export default function filterReducer(state, action) {
 
     case "UPDATE_FILTER_TEXT":
       const { name, value } = action.payload;
-      console.log(name, value);
 
       return {
         ...state,
@@ -71,57 +70,62 @@ export default function filterReducer(state, action) {
 
     case "FILTER_PRODUCTS":
       let temp = [...state.all_products];
-      const { filterText, category, company } = state.filters;
+      const { filterText, category, company, color } = state.filters;
 
-      // if (filterText) {
-      //   temp = temp.filter((product) =>
-      //     product.name.toLowerCase().includes(filterText.toLowerCase())
-      //   );
-      // }
+      if (filterText) {
+        temp = temp.filter((product) =>
+          product.name.toLowerCase().includes(filterText.toLowerCase())
+        );
+      }
 
-      // if (category.toLowerCase() != "all") {
-      //   temp = temp.filter(
-      //     (product) => product.category.toLowerCase() == category.toLowerCase()
-      //   );
-      // }
+      if (category.toLowerCase() != "all") {
+        temp = temp.filter(
+          (product) => product.category.toLowerCase() == category.toLowerCase()
+        );
+      }
 
-      // if (company.toLowerCase() != "all") {
-      //   temp = temp.filter(
-      //     (product) => product.company.toLowerCase() == company.toLowerCase()
-      //   );
-      // }
+      if (company.toLowerCase() != "all") {
+        temp = temp.filter(
+          (product) => product.company.toLowerCase() == company.toLowerCase()
+        );
+      }
+
+      console.log(color);
+      if (color !== "all") {
+        temp = temp.filter((product) => product.colors.includes(color));
+      }
 
       // To make the code more DRY, we can refactor it to use
       // a single filter function instead of repeating the filtering logic multiple times.
 
-      const filterProduct = (product) => {
-        let filterResult = true;
+      // const filterProduct = (product) => {
+      //   let filterResult = true;
 
-        if (filterText) {
-          filterResult =
-            filterResult &&
-            product.name.toLowerCase().includes(filterText.toLowerCase());
-        }
-        if (category.toLowerCase() !== "all") {
-          filterResult =
-            filterResult &&
-            product.category.toLowerCase() === category.toLowerCase();
-        }
-        if (company.toLowerCase() !== "all") {
-          filterResult =
-            filterResult &&
-            product.company.toLowerCase() === company.toLowerCase();
-        }
+      //   if (filterText) {
+      //     filterResult =
+      //       filterResult &&
+      //       product.name.toLowerCase().includes(filterText.toLowerCase());
+      //   }
+      //   if (category.toLowerCase() !== "all") {
+      //     filterResult =
+      //       filterResult &&
+      //       product.category.toLowerCase() === category.toLowerCase();
+      //   }
+      //   if (company.toLowerCase() !== "all") {
+      //     filterResult =
+      //       filterResult &&
+      //       product.company.toLowerCase() === company.toLowerCase();
+      //   }
 
-        return filterResult;
-      };
+      //   return filterResult;
+      // };
 
       // The function uses the same filtering conditions as the original code,
       //but checks each condition against the product using the "&&" operator.
       //This ensures that all conditions must be true for the product to be included in the result.
 
-      temp = temp.filter(filterProduct);
-
+      // temp = temp.filter(filterProduct);
+      console.log(state.filters);
       return {
         ...state,
         filter_products: temp,
