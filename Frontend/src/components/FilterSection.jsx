@@ -76,7 +76,11 @@ export default function FilterSection() {
       >
         More filters
       </button>
-      <div className={`space-y-6 lg:space-y-8 ${!isOpen ? "hidden" : "block"}`}>
+      <div
+        className={`space-y-6 lg:space-y-8 ${
+          !isOpen ? "hidden" : "block"
+        } lg:block`}
+      >
         <div className="flex lg:flex-col">
           <p className="hidden lg:block mb-3 font-light">Categories</p>
           {categories?.map((category, idx) => (

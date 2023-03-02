@@ -77,40 +77,85 @@ export default function filterReducer(state, action) {
       };
 
     case "FILTER_PRODUCTS":
-      let temp = [...state.all_products];
-      const { filterText, category, company, color, price } = state.filters;
+      // let temp = [...state.all_products];
+      // const { filterText, category, company, color, price } = state.filters;
 
-      if (filterText) {
-        temp = temp.filter((product) =>
-          product.name.toLowerCase().includes(filterText.toLowerCase())
-        );
-      }
+      // if (filterText) {
+      //   temp = temp.filter((product) =>
+      //     product.name.toLowerCase().includes(filterText.toLowerCase())
+      //   );
+      // }
 
-      if (category.toLowerCase() != "all") {
-        temp = temp.filter(
-          (product) => product.category.toLowerCase() == category.toLowerCase()
-        );
-      }
+      // if (category.toLowerCase() != "all") {
+      //   temp = temp.filter(
+      //     (product) => product.category.toLowerCase() == category.toLowerCase()
+      //   );
+      // }
 
-      if (company.toLowerCase() != "all") {
-        temp = temp.filter(
-          (product) => product.company.toLowerCase() == company.toLowerCase()
-        );
-      }
+      // if (company.toLowerCase() != "all") {
+      //   temp = temp.filter(
+      //     (product) => product.company.toLowerCase() == company.toLowerCase()
+      //   );
+      // }
 
-      if (color !== "all") {
-        temp = temp.filter((product) => product.colors.includes(color));
-      }
+      // if (color !== "all") {
+      //   temp = temp.filter((product) => product.colors.includes(color));
+      // }
 
-      if (price === 0) {
-        temp = temp.filter((product) => product.price == price);
-      } else {
-        temp = temp.filter((product) => product.price <= price);
-      }
+      // if (price === 0) {
+      //   temp = temp.filter((product) => product.price == price);
+      // } else {
+      //   temp = temp.filter((product) => product.price <= price);
+      // }
+
+      // return {
+      //   ...state,
+      //   filter_products: temp,
+      // };
+
+      const applyFilters = (products, filters) => {
+        const { filterText, category, company, color, price } = filters;
+
+        let filteredProducts = products;
+
+        if (filterText) {
+          filteredProducts = filteredProducts.filter((product) =>
+            product.name.toLowerCase().includes(filterText.toLowerCase())
+          );
+        }
+
+        if (category !== "all") {
+          filteredProducts = filteredProducts.filter(
+            (product) => product.category === category
+          );
+        }
+
+        if (company !== "all") {
+          filteredProducts = filteredProducts.filter(
+            (product) => product.company === company
+          );
+        }
+
+        if (color !== "all") {
+          filteredProducts = filteredProducts.filter((product) =>
+            product.colors.includes(color)
+          );
+        }
+
+        if (price !== null && price !== "") {
+          filteredProducts = filteredProducts.filter(
+            (product) => parseInt(product.price) <= parseInt(price)
+          );
+        }
+
+        return filteredProducts;
+      };
+
+      const filteredProducts = applyFilters(state.all_products, state.filters);
 
       return {
         ...state,
-        filter_products: temp,
+        filter_products: filteredProducts,
       };
 
     case "CLEAR_FILTERS":
