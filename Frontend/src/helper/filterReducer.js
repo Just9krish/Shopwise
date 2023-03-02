@@ -151,7 +151,10 @@ export default function filterReducer(state, action) {
         return filteredProducts;
       };
 
-      const filteredProducts = applyFilters(state.all_products, state.filters);
+      const filteredProducts = applyFilters(
+        [...state.all_products],
+        state.filters
+      );
 
       return {
         ...state,
