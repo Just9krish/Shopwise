@@ -7,7 +7,7 @@ export default function Sort() {
     useFilterContext();
 
   return (
-    <div className="flex justify-between items-center mb-10">
+    <div className="flex justify-between items-center mb-10 flex-wrap gap-3">
       <div className="flex gap-5">
         <button
           onClick={setGridLayout}

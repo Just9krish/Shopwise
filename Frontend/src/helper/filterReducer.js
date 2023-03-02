@@ -4,7 +4,6 @@ export default function filterReducer(state, action) {
       const prices = action.payload.map((product) => product.price);
 
       const maxPrice = Math.max(...prices);
-      console.log(maxPrice);
       return {
         ...state,
         filter_products: [...action.payload],
@@ -109,7 +108,6 @@ export default function filterReducer(state, action) {
         temp = temp.filter((product) => product.price <= price);
       }
 
-      console.log(state.filters);
       return {
         ...state,
         filter_products: temp,

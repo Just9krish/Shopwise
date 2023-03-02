@@ -11,6 +11,8 @@ export default function FilterSection() {
     clearFilters,
   } = useFilterContext();
 
+  const [isOpen, setIsOpen] = useState(false);
+
   const [activeCategoryButton, setActiveCategoryButton] = useState("all");
 
   function handleClick(e, category) {
@@ -47,7 +49,7 @@ export default function FilterSection() {
   const colors = getUniqueProductProp(all_products, "colors");
 
   return (
-    <div className="space-y-8 px-4 pt-2 pb-8 border shadow-md">
+    <div className="space-y-6 lg:space-y-8 p-4 border shadow-md mb-10 lg:m-0">
       <div className="flex rounded border-2 items-center">
         <div className="flex items-center justify-center px-2.5 border-r">
           <svg
@@ -68,66 +70,79 @@ export default function FilterSection() {
           placeholder="Search..."
         />
       </div>
-      <div className="flex flex-col">
-        <p className="mb-3 font-light">Categories</p>
-        {categories?.map((category, idx) => (
-          <button
-            key={idx}
-            name="category"
-            onClick={(e) => handleClick(e, category)}
-            value={category}
-            className={`mb-2 text-left pl-4 text-sm py-1 font-medium ${
-              activeCategoryButton == category
-                ? "border-b border-orange-500 text-orange-500"
-                : ""
-            }`}
-          >
-            {category.charAt(0).toUpperCase() + category.slice(1)}
-          </button>
-        ))}
-      </div>
-
-      <div>
-        <label htmlFor="companies" className="mb-3 block font-light">
-          Companies
-        </label>
-        <select
-          name="company"
-          className="bg-gray-50 border cursor-pointer pl-4 border-gray-300 text-gray-900 text-sm rounded-md w-full focus:ring-blue-500 focus:border-blue-500 p-2 transition-all"
-          onChange={setFilterValue}
-          id="companies"
-        >
-          {companies?.map((company, idx) => (
-            <option value={company} name="company" key={idx}>
-              {(company = company.charAt(0).toUpperCase() + company.slice(1))}
-            </option>
+      <button
+        className="lg:hidden text-orange-500 font-semibold"
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
+        More filters
+      </button>
+      <div className={`space-y-6 lg:space-y-8 ${!isOpen ? "hidden" : "block"}`}>
+        <div className="flex lg:flex-col">
+          <p className="hidden lg:block mb-3 font-light">Categories</p>
+          {categories?.map((category, idx) => (
+            <button
+              key={idx}
+              name="category"
+              onClick={(e) => handleClick(e, category)}
+              value={category}
+              className={`lg:mb-2 text-left p-1.5 lg:pl-4 text-sm py-1 font-medium ${
+                activeCategoryButton == category
+                  ? "border-b border-orange-500 text-orange-500"
+                  : ""
+              }`}
+            >
+              {category.charAt(0).toUpperCase() + category.slice(1)}
+            </button>
           ))}
-        </select>
-      </div>
+        </div>
 
-      <ColorPicker
-        setFilterValue={setFilterValue}
-        style={true}
-        colors={colors}
-      />
+        <div>
+          <label htmlFor="companies" className="mb-3 block font-light">
+            Companies
+          </label>
+          <select
+            name="company"
+            className="bg-gray-50 border cursor-pointer pl-4 border-gray-300 text-gray-900 text-sm rounded-md w-full focus:ring-blue-500 focus:border-blue-500 p-2 transition-all"
+            onChange={setFilterValue}
+            id="companies"
+          >
+            {companies?.map((company, idx) => (
+              <option value={company} name="company" key={idx}>
+                {(company = company.charAt(0).toUpperCase() + company.slice(1))}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      <div>
-        <label htmlFor="price">price</label>
-        <p>{formattedPrice(price)}</p>
-        <input
-          type="range"
-          id="price"
-          min={minPrice}
-          name="price"
-          max={maxPrice}
-          value={price}
-          step="10"
-          onChange={setFilterValue}
+        <ColorPicker
+          setFilterValue={setFilterValue}
+          style={true}
+          colors={colors}
         />
-      </div>
 
-      <div>
-        <button onClick={clearFilters}>Clear Filter</button>
+        <div>
+          <label htmlFor="price">price</label>
+          <p>{formattedPrice(price)}</p>
+          <input
+            type="range"
+            id="price"
+            min={minPrice}
+            name="price"
+            max={maxPrice}
+            value={price}
+            step="10"
+            onChange={setFilterValue}
+          />
+        </div>
+
+        <div>
+          <button
+            className="font-medium bg-red-500 text-white px-4 py-1 rounded-sm"
+            onClick={clearFilters}
+          >
+            Clear Filter
+          </button>
+        </div>
       </div>
     </div>
   );

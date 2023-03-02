@@ -11,7 +11,7 @@ export default function LinearLayout({ filterProduct }) {
           key={product.id}
           className="block"
         >
-          <div className="flex gap-8 border-2 border-orange-400 shadow-lg p-4 rounded-lg transition-all duration-200">
+          <div className="flex gap-8 bg-[#f5f5f5] shadow-lg p-4 overflow-hidden rounded-lg transition-all duration-200">
             <div className="w-2/5 rounded-lg overflow-hidden">
               <img src={product.image} alt={product.name} />
             </div>
@@ -22,8 +22,8 @@ export default function LinearLayout({ filterProduct }) {
                   {product.category}
                 </span>
               </div>
-              <p className="text-sm mb-">{product.description}</p>
-              <div className="flex justify-between items-center pt-3 border-t border-[#ddd]">
+              <p className="hidden lg:block text-sm">{product.description}</p>
+              <div className="flex justify-between flex-wrap gap-4 items-center pt-3 border-t border-[#ddd]">
                 <div className="flex items-center gap-3">
                   <del className="text-gray-400 text-sm">
                     {formattedPrice(product.price + 300000)}
@@ -32,10 +32,11 @@ export default function LinearLayout({ filterProduct }) {
                     {formattedPrice(product.price)}
                   </span>
                 </div>
-                <span className="text-lg cursor-pointer border border-gray-800 rounded-full p-1 hover:text-white hover:bg-orange-400 hover:border-orange-400 transition-all duration-300">
+                <span className="text-lg hidden lg:block cursor-pointer border border-gray-800 rounded-full p-1 hover:text-white hover:bg-orange-400 hover:border-orange-400 transition-all duration-300">
                   <MdOutlineAddShoppingCart />
                 </span>
               </div>
+              <button className="lg:hidden">Add to cart</button>
             </div>
           </div>
         </NavLink>

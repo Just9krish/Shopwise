@@ -6,9 +6,9 @@ export default function Products() {
   return (
     <section className="container mx-auto px-4">
       <div className="max-w-6xl mx-auto my-16 md:my-28">
-        <div className="grid grid-cols-4 gap-8 min-h-screen">
+        <div className="lg:grid lg:grid-cols-4 gap-8 lg:min-h-screen">
           <FilterSection />
-          <div className="col-span-3">
+          <div className="lg:col-span-3">
             <ProductsList />
           </div>
         </div>
