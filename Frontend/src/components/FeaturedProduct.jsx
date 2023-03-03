@@ -19,7 +19,7 @@ export default function FeaturedProduct() {
             </div>
           ) : (
             <div className="grid gap-8 grid-cols-1 max-w-xs mx-auto md:grid-cols-3 md:gap-8 md:max-w-5xl">
-              {featuredProducts.map((product) => (
+              {featuredProducts?.map((product) => (
                 <Product key={product.id} product={product} />
               ))}
             </div>

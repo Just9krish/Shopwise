@@ -21,7 +21,7 @@ export default function FilterSection() {
   }
 
   function getUniqueProductProp(data, prop) {
-    const propArr = data.map((product) => product[prop]);
+    const propArr = data?.map((product) => product[prop]);
 
     if (prop === "colors") {
       // return ["all", ...new Set([].concat(...propArr))];

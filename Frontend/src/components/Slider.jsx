@@ -23,7 +23,7 @@ export default function Slider({ images }) {
         className="w-[400vw] flex items-center justify-center transition-all duration-1000 ease-in-out"
         style={{ transform: `translateX(${-100 * slide}vw)` }}
       >
-        {images.map((image) => (
+        {images?.map((image) => (
           <div key={image.id} className="w-[100vw]">
             <img
               src={image.url}

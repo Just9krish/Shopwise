@@ -46,7 +46,7 @@ export default function Header() {
             className={`flex flex-col mt-24 space-y-6 pl-6 text-white font-semibold 
             }`}
           >
-            {links.map((link) => (
+            {links?.map((link) => (
               <li
                 key={link.id}
                 onClick={() => setIsOpen(!isOpen)}
@@ -68,7 +68,7 @@ export default function Header() {
             <img src={logo} className="h-7" alt="Logo" />
           </NavLink>
           <div className="flex items-center space-x-8">
-            {links.map((link) => (
+            {links?.map((link) => (
               <NavLink
                 className={({ isActive }) =>
                   !isActive

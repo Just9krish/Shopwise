@@ -5,7 +5,7 @@ import { MdOutlineAddShoppingCart } from "react-icons/md";
 export default function LinearLayout({ filterProduct }) {
   return (
     <div className="space-y-6">
-      {filterProduct.map((product) => (
+      {filterProduct?.map((product) => (
         <NavLink
           to={`/products/${product.id}`}
           key={product.id}

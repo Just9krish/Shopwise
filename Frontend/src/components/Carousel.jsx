@@ -8,7 +8,7 @@ export default function Carousel({ images }) {
   return (
     <div className="hidden lg:flex lg:justify-between lg:items-center lg:gap-10 ">
       <div className="lg:w-1/4 space-y-5">
-        {images.map((image) => (
+        {images?.map((image) => (
           <div
             key={image.id}
             className="hover:opacity-40 cursor-pointer w-28 duration-500 border-[2.5px] border-transparent hover:border-[2.5px] hover:border-orange-500 hover:bg-orange-500 rounded-lg"
@@ -23,7 +23,7 @@ export default function Carousel({ images }) {
         ))}
       </div>
       <div className="lg:w-3/4 md:w-full">
-        {images.map((image) => (
+        {images?.map((image) => (
           <img
             src={image.url}
             className={`${
