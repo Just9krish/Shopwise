@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -8,7 +10,7 @@ const app = express();
 
 // port & db string
 const port = process.env.PORT || 3000;
-const dbPath = process.env.DBPATH || "mongodb://127.0.0.1:27017:ecommerce";
+const dbPath = process.env.DBPATH;
 
 // middleware
 app.use(cors());
@@ -19,13 +21,13 @@ app.use(express.json());
 
 // import routes
 const productRoute = require("./routes/product.routes");
+const { config } = require("dotenv");
 
 // routes
 app.use("/", productRoute);
 
 // mongoose
-mongoose.set("useFindAndModify", false);
-mongoose.set("useUnifiedTopology", true);
+mongoose.set("strictQuery", false);
 mongoose
   .connect(dbPath, { useNewUrlParser: true })
   .then(() =>
