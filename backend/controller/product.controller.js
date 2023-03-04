@@ -1,5 +1,6 @@
 const Product = require("../models/product.model");
 const isValid = require("mongoose").Types.ObjectId.isValid;
+const path = require("path");
 
 async function getAllProducts(req, res, next) {
   try {
@@ -37,11 +38,16 @@ async function getProduct(req, res) {
 
 async function addProduct(req, res) {
   try {
+    // const path = req.file.path.replace(/^public\\/, "");
+
     const product = await Product.create({
       name: req.body.name,
       price: req.body.price,
       description: req.body.description,
-      image: req.file.path,
+      images: req.files.map(
+        (file) =>
+          `http:\\\\${req.hostname}:3000\\${file.path.replace(/^public\\/, "")}`
+      ),
       category: req.body.category,
       rating: req.body.rating,
       reviews: req.body.reviews,

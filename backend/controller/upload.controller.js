@@ -1,8 +1,4 @@
-const express = require("express");
 const multer = require("multer");
-const path = require("path");
-
-const uploadRouter = express.Router();
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -21,6 +17,10 @@ const imageFilter = (req, file, cb) => {
   cb(null, true);
 };
 
-const upload = multer({ storage: storage, fileFilter: imageFilter });
+const upload = multer({
+  storage: storage,
+  fileFilter: imageFilter,
+  limits: { files: 5 },
+});
 
 module.exports = upload;

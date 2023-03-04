@@ -4,6 +4,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
+const logger = require("morgan");
 
 // app
 const app = express();
@@ -14,9 +15,10 @@ const dbPath = process.env.DBPATH;
 
 // middleware
 app.use(cors());
+app.use(logger("dev"));
 
-app.use(express.static(path.join(__dirname, "/public")));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // import routes
