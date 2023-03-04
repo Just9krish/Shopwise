@@ -21,7 +21,6 @@ app.use(express.json());
 
 // import routes
 const productRoute = require("./routes/product.routes");
-const { config } = require("dotenv");
 
 // routes
 app.use("/", productRoute);

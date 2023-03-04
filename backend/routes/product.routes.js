@@ -1,5 +1,8 @@
 const express = require("express");
+const upload = require("./upload.routes");
+
 const router = express.Router();
+
 const {
   getAllProducts,
   getProduct,
@@ -9,7 +12,7 @@ const {
 
 router.get("/", getAllProducts);
 router.get("/:id", getProduct);
-router.post("/", addProduct);
+router.post("/", upload.single("image"), addProduct);
 router.post("/:id", deleteProduct);
 
 module.exports = router;

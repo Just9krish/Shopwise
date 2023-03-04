@@ -37,17 +37,11 @@ async function getProduct(req, res) {
 
 async function addProduct(req, res) {
   try {
-    if (typeof req.body == "undefined") {
-      return res
-        .status()
-        .json({ success: false, message: "data is undefined" });
-    }
-
     const product = await Product.create({
       name: req.body.name,
       price: req.body.price,
       description: req.body.description,
-      image: req.body.image,
+      image: req.file.path,
       category: req.body.category,
       rating: req.body.rating,
       reviews: req.body.reviews,
@@ -64,7 +58,7 @@ async function addProduct(req, res) {
       .status(201)
       .json({ success: true, message: "Product is added into database" });
   } catch (err) {
-    res.json(500).json({ success: false, message: err.message });
+    res.status(500).json({ success: false, message: err.message });
   }
 }
 
