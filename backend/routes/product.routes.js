@@ -12,6 +12,7 @@ const {
   getTrendingProducts,
   getProductCategories,
   getProductsInCategory,
+  editProduct,
 } = require("../controller/product.controller");
 
 router.get("/", getAllProducts);
@@ -22,6 +23,10 @@ router.get("/categories/:category", getProductsInCategory);
 router.get("/:id", getProduct);
 
 router.post("/", upload.array("images"), addProduct);
+
+router.put("/:id", editProduct);
+router.patch("/:id", editProduct);
+
 router.delete("/:id", deleteProduct);
 
 module.exports = router;

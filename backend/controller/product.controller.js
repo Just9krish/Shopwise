@@ -28,7 +28,7 @@ async function getProduct(req, res) {
         message: "Product is not found with given Id",
       });
     }
-    const product = await Product.findOne({ id });
+    const product = await Product.findOne({ _id: id });
 
     if (!product) {
       return res.status(404).json({
@@ -74,6 +74,23 @@ async function addProduct(req, res) {
     res
       .status(201)
       .json({ success: true, message: "Product is added into database" });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+}
+
+async function editProduct(req, res) {
+  try {
+    const id = req.params.id;
+
+    if (typeof req.body == undefined || req.params.id == null) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Bad request, check request" });
+    }
+
+    const product = await Product.findOneAndUpdate(id, req.body);
+    res.status(200).json({ success: true, message: "updated successfully" });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
@@ -182,4 +199,5 @@ module.exports = {
   getTrendingProducts,
   getProductCategories,
   getProductsInCategory,
+  editProduct,
 };
