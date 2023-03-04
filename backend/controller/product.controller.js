@@ -5,6 +5,13 @@ const path = require("path");
 async function getAllProducts(req, res, next) {
   try {
     const products = await Product.find();
+
+    if (!products) {
+      res
+        .status(400)
+        .json({ success: false, message: "Can not get the products" });
+    }
+
     res.status(200).json({ success: true, data: products });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
@@ -44,7 +51,7 @@ async function addProduct(req, res) {
       description: req.body.description,
       images: req.files.map((file) =>
         path.normalize(
-          `http:\\\\${req.hostname}:3000\\${file.path.replace(/^public\\/, "")}`
+          `http://${req.hostname}:3000/${file.path.replace(/^public/, "")}`
         )
       ),
       category: req.body.category,
@@ -72,7 +79,7 @@ async function addProduct(req, res) {
   }
 }
 
-async function deleteProduct() {
+async function deleteProduct(req, res) {
   try {
     if (req.params.id == null) {
       res
@@ -89,14 +96,7 @@ async function deleteProduct() {
       });
     }
 
-    const product = await Product.findOneAndDelete({ id });
-
-    if (!product) {
-      return res.status(500).json({
-        success: false,
-        message: "Error occur, product cannot be added right now",
-      });
-    }
+    const product = await Product.findOneAndDelete(id);
 
     res
       .status(200)
@@ -140,6 +140,39 @@ async function getTrendingProducts(req, res) {
   }
 }
 
+async function getProductCategories(req, res) {
+  try {
+    const categories = await Product.distinct("category");
+
+    if (!categories) {
+      res
+        .status(400)
+        .json({ success: false, message: "Cannot get categories" });
+    }
+
+    res.status(200).json({ success: true, data: categories });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+}
+
+async function getProductsInCategory(req, res) {
+  try {
+    const category = req.params.category;
+
+    if (!category) {
+      return res
+        .status(400)
+        .json({ success: false, message: "category doesn't provide" });
+    }
+
+    const categoryProducts = await Product.find({ category });
+    res.status(200).json({ success: true, data: categoryProducts });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+}
+
 module.exports = {
   getAllProducts,
   getProduct,
@@ -147,4 +180,6 @@ module.exports = {
   deleteProduct,
   getFeaturedProducts,
   getTrendingProducts,
+  getProductCategories,
+  getProductsInCategory,
 };

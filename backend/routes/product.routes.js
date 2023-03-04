@@ -10,13 +10,18 @@ const {
   deleteProduct,
   getFeaturedProducts,
   getTrendingProducts,
+  getProductCategories,
+  getProductsInCategory,
 } = require("../controller/product.controller");
 
 router.get("/", getAllProducts);
 router.get("/featured", getFeaturedProducts);
 router.get("/trending", getTrendingProducts);
+router.get("/categories", getProductCategories);
+router.get("/categories/:category", getProductsInCategory);
 router.get("/:id", getProduct);
+
 router.post("/", upload.array("images"), addProduct);
-router.post("/:id", deleteProduct);
+router.delete("/:id", deleteProduct);
 
 module.exports = router;
