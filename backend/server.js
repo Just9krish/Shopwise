@@ -26,7 +26,7 @@ app.use(express.json());
 const productRoute = require("./routes/product.routes");
 
 // routes
-app.use("/", productRoute);
+app.use("/api/products", productRoute);
 
 // mongoose
 mongoose.set("strictQuery", false);

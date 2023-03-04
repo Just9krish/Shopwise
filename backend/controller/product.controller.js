@@ -42,13 +42,19 @@ async function addProduct(req, res) {
       name: req.body.name,
       price: req.body.price,
       description: req.body.description,
-      images: req.files.map(
-        (file) =>
+      images: req.files.map((file) =>
+        path.normalize(
           `http:\\\\${req.hostname}:3000\\${file.path.replace(/^public\\/, "")}`
+        )
       ),
       category: req.body.category,
       rating: req.body.rating,
       reviews: req.body.reviews,
+      featured: req.body.featured,
+      trending: req.body.trending,
+      company: req.body.company,
+      stock: req.body.stock,
+      colors: req.body.colors.split(" "),
     });
 
     if (!product) {
@@ -67,33 +73,71 @@ async function addProduct(req, res) {
 }
 
 async function deleteProduct() {
-  if (req.params.id == null) {
+  try {
+    if (req.params.id == null) {
+      res
+        .status(400)
+        .json({ status: false, message: "Id of product is not provided" });
+    }
+
+    const id = req.params.id;
+
+    if (!isValid(id)) {
+      res.status(400).json({
+        status: false,
+        message: "Id is different check before sending it.",
+      });
+    }
+
+    const product = await Product.findOneAndDelete({ id });
+
+    if (!product) {
+      return res.status(500).json({
+        success: false,
+        message: "Error occur, product cannot be added right now",
+      });
+    }
+
     res
-      .status(400)
-      .json({ status: false, message: "Id of product is not provided" });
+      .status(200)
+      .json({ status: true, message: "Product is deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
+}
 
-  const id = req.params.id;
+async function getFeaturedProducts(req, res) {
+  try {
+    const featuredProducts = await Product.find({ featured: true });
 
-  if (!isValid(id)) {
-    res.status(400).json({
-      status: false,
-      message: "Id is different check before sending it.",
-    });
+    if (!featuredProducts) {
+      return res.status(404).json({
+        success: false,
+        message: "There is not single featued products",
+      });
+    }
+
+    res.status(200).json({ success: true, data: featuredProducts });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
+}
 
-  const product = await Product.findOneAndDelete({ id });
+async function getTrendingProducts(req, res) {
+  try {
+    const trendingProducts = await Product.find({ trending: true });
 
-  if (!product) {
-    return res.status(500).json({
-      success: false,
-      message: "Error occur, product cannot be added right now",
-    });
+    if (!trendingProducts) {
+      return res.status(404).json({
+        success: false,
+        message: "There is not single trending products",
+      });
+    }
+
+    res.status(200).json({ success: true, data: trendingProducts });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
-
-  res
-    .status(200)
-    .json({ status: true, message: "Product is deleted successfully" });
 }
 
 module.exports = {
@@ -101,4 +145,6 @@ module.exports = {
   getProduct,
   addProduct,
   deleteProduct,
+  getFeaturedProducts,
+  getTrendingProducts,
 };
