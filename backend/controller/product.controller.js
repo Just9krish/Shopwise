@@ -38,8 +38,6 @@ async function getProduct(req, res) {
 
 async function addProduct(req, res) {
   try {
-    // const path = req.file.path.replace(/^public\\/, "");
-
     const product = await Product.create({
       name: req.body.name,
       price: req.body.price,

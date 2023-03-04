@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
 const logger = require("morgan");
+const multer = require("multer");
 
 // app
 const app = express();
@@ -35,3 +36,11 @@ mongoose
     app.listen(port, () => console.log(`Server is listening to ${port}`))
   )
   .catch((err) => console.log(err));
+
+app.use((err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+    res.status(400).json({ success: false, message: err.message });
+  } else {
+    next();
+  }
+});
