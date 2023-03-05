@@ -23,7 +23,8 @@ export const ProductContextProvider = ({ children }) => {
     try {
       const res = await axios.get(url);
       const products = res.data;
-      dispatch({ type: "SET_API_DATA", payload: products });
+      console.log(products);
+      dispatch({ type: "SET_API_DATA", payload: products.data });
     } catch (error) {
       dispatch({ type: "API_ERROR" });
     }

@@ -19,6 +19,7 @@ export default function Product() {
   const { getSingleProduct, singleProduct, isSingleLoading } =
     useProductContext();
 
+  console.log(singleProduct);
   useEffect(() => {
     getSingleProduct(`${url}?id=${id}`);
 
@@ -35,8 +36,8 @@ export default function Product() {
       <section className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto py-14 md:py-16">
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-20">
-            <Carousel images={singleProduct.image} />
-            <Slider images={singleProduct.image} />
+            <Carousel images={singleProduct.images} />
+            <Slider images={singleProduct.images} />
             <div className="space-y-6">
               <div className="">
                 <h2 className="text-3xl font-black">{singleProduct.name}</h2>

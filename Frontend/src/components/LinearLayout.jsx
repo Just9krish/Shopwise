@@ -3,17 +3,19 @@ import { formattedPrice } from "../helper/formatPrice";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 
 export default function LinearLayout({ filterProduct }) {
+  const randomNum = Math.floor(Math.random() * 4);
+
   return (
     <div className="space-y-6">
       {filterProduct?.map((product) => (
         <NavLink
           to={`/products/${product.id}`}
-          key={product.id}
+          key={product._id}
           className="block"
         >
           <div className="flex gap-8 bg-[#f5f5f5] shadow-lg p-4 overflow-hidden rounded-lg transition-all duration-200">
             <div className="w-2/5 rounded-lg overflow-hidden">
-              <img src={product.image} alt={product.name} />
+              <img src={product.images[randomNum]} alt={product.name} />
             </div>
             <div className="w-2/4 space-y-3">
               <div className="flex justify-between items-center">

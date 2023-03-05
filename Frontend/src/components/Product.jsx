@@ -3,16 +3,16 @@ import { formattedPrice } from "../helper/formatPrice";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 
 export default function Product(props) {
-  const { name, id, price, category, image, description } = props.product;
+  const randomNum = Math.floor(Math.random() * 4);
+  const { name, _id, price, category, images, description } = props.product;
 
+  console.log(props.product);
   return (
-    <NavLink to={`/products/${id}`}>
+    <NavLink to={`/products/${_id}`}>
       <div className="border p-4 bg-[#f5f5f5] relative overflow-visible shadow-lg rounded-md">
-        <img
-          src={image}
-          alt=""
-          className="rounded-lg transition-all duration-300 hover:-translate-y-[18%] md:hover:-translate-y-1/4 hover:shadow-img"
-        />
+        <div className="h-40 overflow-hidden rounded-lg transition-all duration-300 hover:-translate-y-[18%] md:hover:-translate-y-1/4 hover:shadow-img">
+          <img src={images[1]} alt="" className="object-cover h-full w-full" />
+        </div>
         <div className="pt-[10%] pb-3">
           <div className="flex justify-between items-center mb-1">
             <p className="text-xl font-black">{name}</p>

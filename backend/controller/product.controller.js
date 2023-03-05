@@ -49,10 +49,9 @@ async function addProduct(req, res) {
       name: req.body.name,
       price: req.body.price,
       description: req.body.description,
-      images: req.files.map((file) =>
-        path.normalize(
+      images: req.files.map(
+        (file) =>
           `http://${req.hostname}:3000/${file.path.replace(/^public/, "")}`
-        )
       ),
       category: req.body.category,
       rating: req.body.rating,
