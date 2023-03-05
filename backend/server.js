@@ -37,6 +37,7 @@ mongoose
   )
   .catch((err) => console.log(err));
 
+// handling multer error if provided more than 5 images
 app.use((err, req, res, next) => {
   if (err instanceof multer.MulterError) {
     res.status(400).json({ success: false, message: err.message });

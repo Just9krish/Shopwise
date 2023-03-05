@@ -89,8 +89,17 @@ async function editProduct(req, res) {
         .json({ success: false, message: "Bad request, check request" });
     }
 
-    const product = await Product.findOneAndUpdate(id, req.body);
-    res.status(200).json({ success: true, message: "updated successfully" });
+    const product = await Product.findOneAndUpdate({ _id: id }, req.body, {
+      new: true,
+    });
+    if (!product) {
+      return res
+        .status(500)
+        .json({ success: false, message: "Can't update right now" });
+    }
+    res
+      .status(200)
+      .json({ success: true, message: "updated successfully", product });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
@@ -113,7 +122,7 @@ async function deleteProduct(req, res) {
       });
     }
 
-    const product = await Product.findOneAndDelete(id);
+    const product = await Product.findOneAndDelete({ _id: id });
 
     res
       .status(200)
