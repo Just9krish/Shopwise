@@ -3,6 +3,8 @@ import { BsSearch } from "react-icons/bs";
 import ColorPicker from "./ColorPicker";
 import { formattedPrice } from "../helper/formatPrice";
 import useFilterContext from "../hooks/useFilterContext";
+import { useEffect } from "react";
+import axios from "axios";
 
 export default function FilterSection() {
   const {
@@ -45,9 +47,22 @@ export default function FilterSection() {
   //   );
   // }
 
+  // const [categories, setCategories] = useState([]);
   const categories = getUniqueProductProp(all_products, "category");
   const companies = getUniqueProductProp(all_products, "company");
   const colors = getUniqueProductProp(all_products, "colors");
+
+  const url = import.meta.env.VITE_URL;
+
+  useEffect(() => {
+    async function getCategories() {
+      const res = await axios.get(`${url}/categories`);
+      setCategories(res.data);
+    }
+    // getCategories();
+  }, []);
+
+  console.log(categories);
 
   return (
     <div className="space-y-6 lg:space-y-8 p-4 border shadow-md mb-10 lg:m-0">

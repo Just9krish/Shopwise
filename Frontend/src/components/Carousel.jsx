@@ -4,20 +4,20 @@ export default function Carousel({ images }) {
     return;
   }
 
-  const [selectImg, setSelectImg] = useState(images[0].id);
+  const [selectImg, setSelectImg] = useState(images[0]._id);
 
   return (
     <div className="hidden lg:flex lg:justify-between lg:items-center lg:gap-10 ">
       <div className="lg:w-1/4 space-y-5">
         {images?.map((image) => (
           <div
-            key={image.id}
+            key={image._id}
             className="hover:opacity-40 cursor-pointer w-28 duration-500 border-[2.5px] border-transparent hover:border-[2.5px] hover:border-orange-500 hover:bg-orange-500 rounded-lg"
           >
             <img
               src={image.url}
               className="rounded-lg"
-              onClick={() => setSelectImg(image.id)}
+              onClick={() => setSelectImg(image._id)}
               alt={image.filename}
             />
           </div>
@@ -27,8 +27,9 @@ export default function Carousel({ images }) {
         {images?.map((image) => (
           <img
             src={image.url}
+            key={image._id}
             className={`${
-              image.id === selectImg ? "block" : "hidden"
+              image._id === selectImg ? "block" : "hidden"
             } rounded-lg`}
             alt={image.filename}
           />

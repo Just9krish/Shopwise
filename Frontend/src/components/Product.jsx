@@ -5,12 +5,17 @@ import { MdOutlineAddShoppingCart } from "react-icons/md";
 export default function Product(props) {
   const randomNum = Math.floor(Math.random() * 4);
   const { name, _id, price, category, images, description } = props.product;
+  console.log(images);
 
   return (
     <NavLink to={`/products/${_id}`}>
       <div className="border p-4 bg-[#f5f5f5] relative overflow-visible shadow-lg rounded-md">
         <div className="h-40 overflow-hidden rounded-lg transition-all duration-300 hover:-translate-y-[18%] md:hover:-translate-y-1/4 hover:shadow-img">
-          <img src={images[1]} alt="" className="object-cover h-full w-full" />
+          <img
+            src={images[1].url}
+            alt=""
+            className="object-cover h-full w-full"
+          />
         </div>
         <div className="pt-[10%] pb-3">
           <div className="flex justify-between items-center mb-1">

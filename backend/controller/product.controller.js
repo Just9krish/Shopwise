@@ -45,14 +45,16 @@ async function getProduct(req, res) {
 
 async function addProduct(req, res) {
   try {
+    const images = req.files.map((file) => ({
+      url: `http://${req.hostname}:3000/${file.path.replace(/^public/, "")}`,
+      name: file.originalname,
+    }));
+
     const product = await Product.create({
       name: req.body.name,
       price: req.body.price,
       description: req.body.description,
-      images: req.files.map(
-        (file) =>
-          `http://${req.hostname}:3000/${file.path.replace(/^public/, "")}`
-      ),
+      images: images,
       category: req.body.category,
       rating: req.body.rating,
       reviews: req.body.reviews,
@@ -175,7 +177,7 @@ async function getProductCategories(req, res) {
         .json({ success: false, message: "Cannot get categories" });
     }
 
-    res.status(200).json({ success: true, data: categories });
+    res.status(200).json(categories);
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
@@ -192,7 +194,69 @@ async function getProductsInCategory(req, res) {
     }
 
     const categoryProducts = await Product.find({ category });
-    res.status(200).json({ success: true, data: categoryProducts });
+    res.status(200).json(categoryProducts);
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+}
+
+async function getProductCompanies(req, res) {
+  try {
+    const companies = await Product.distinct("company");
+
+    if (!companies) {
+      res.status(400).json({ success: false, message: "Cannot get companies" });
+    }
+
+    res.status(200).json(companies);
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+}
+
+async function getProductsInCompany(req, res) {
+  try {
+    const company = req.params.company;
+
+    if (!company) {
+      return res
+        .status(400)
+        .json({ success: false, message: "category doesn't provide" });
+    }
+
+    const companyProducts = await Product.find({ company });
+    res.status(200).json(companyProducts);
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+}
+
+async function getProductColors(req, res) {
+  try {
+    const colors = await Product.distinct("colors");
+
+    if (!colors) {
+      res.status(400).json({ success: false, message: "Cannot get colors" });
+    }
+
+    res.status(200).json(colors);
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+}
+
+async function getProductsInColors(req, res) {
+  try {
+    const colors = req.params.colors;
+
+    if (!colors) {
+      return res
+        .status(400)
+        .json({ success: false, message: "category doesn't provide" });
+    }
+
+    const colorsProducts = await Product.find({ colors });
+    res.status(200).json(colorsProducts);
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
@@ -208,4 +272,8 @@ module.exports = {
   getProductCategories,
   getProductsInCategory,
   editProduct,
+  getProductCompanies,
+  getProductColors,
+  getProductsInCompany,
+  getProductsInColors,
 };
