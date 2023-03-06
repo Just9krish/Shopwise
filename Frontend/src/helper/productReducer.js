@@ -18,6 +18,9 @@ function productReducer(state, action) {
         featuredProducts: action.payload.filter(
           (product) => product.featured === true
         ),
+        trendingProducts: action.payload.filter(
+          (product) => product.trending === true
+        ),
       };
 
     case "SET_SINGLE_LOADING":

@@ -34,10 +34,9 @@ export default function Sort() {
           className="bg-gray-50 border cursor-pointer border-gray-300 text-gray-900 text-sm rounded-lg w-full focus:ring-blue-500 focus:border-blue-500 p-2.5"
           id="sort"
         >
-          <option value="" disabled selected>
-            Select option to sort the products
+          <option value="relevance" selected>
+            Relevance
           </option>
-          <option value="random">Random</option>
           <option value="ltoh">Lowest to Highest (price)</option>
           <option value="htol">Highest to Lowest (price)</option>
         </select>

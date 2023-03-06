@@ -9,7 +9,7 @@ export default function LinearLayout({ filterProduct }) {
     <div className="space-y-6">
       {filterProduct?.map((product) => (
         <NavLink
-          to={`/products/${product.id}`}
+          to={`/products/${product._id}`}
           key={product._id}
           className="block"
         >

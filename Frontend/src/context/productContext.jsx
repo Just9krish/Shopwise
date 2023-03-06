@@ -9,6 +9,7 @@ const url = import.meta.env.VITE_URL;
 const initialState = {
   products: [],
   featuredProducts: [],
+  trendingProducts: [],
   isLoading: false,
   isError: false,
   isSingleLoading: false,
@@ -23,7 +24,6 @@ export const ProductContextProvider = ({ children }) => {
     try {
       const res = await axios.get(url);
       const products = res.data;
-      console.log(products);
       dispatch({ type: "SET_API_DATA", payload: products.data });
     } catch (error) {
       dispatch({ type: "API_ERROR" });
@@ -34,7 +34,7 @@ export const ProductContextProvider = ({ children }) => {
     dispatch({ type: "SET_SINGLE_LOADING" });
     try {
       const res = await axios.get(url);
-      const singleProduct = await res.data;
+      const singleProduct = await res.data.data;
       dispatch({ type: "SET_SINGLE_PRODUCT", payload: singleProduct });
     } catch (err) {
       dispatch({ type: "API_SINGLE_ERROR" });

@@ -6,7 +6,6 @@ export default function Product(props) {
   const randomNum = Math.floor(Math.random() * 4);
   const { name, _id, price, category, images, description } = props.product;
 
-  console.log(props.product);
   return (
     <NavLink to={`/products/${_id}`}>
       <div className="border p-4 bg-[#f5f5f5] relative overflow-visible shadow-lg rounded-md">
@@ -15,7 +14,7 @@ export default function Product(props) {
         </div>
         <div className="pt-[10%] pb-3">
           <div className="flex justify-between items-center mb-1">
-            <p className="text-xl font-black">{name}</p>
+            <p className="text-xl font-black capitalize">{name}</p>
             <span className="capitalize bg-red-300 text-white text-xs px-1.5 rounded-xl">
               {category}
             </span>

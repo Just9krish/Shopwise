@@ -60,7 +60,7 @@ async function addProduct(req, res) {
       trending: req.body.trending,
       company: req.body.company,
       stock: req.body.stock,
-      colors: req.body.colors.split(" "),
+      colors: req.body.colors.split(","),
     });
 
     if (!product) {

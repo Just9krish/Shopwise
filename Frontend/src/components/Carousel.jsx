@@ -4,8 +4,6 @@ export default function Carousel({ images }) {
     return;
   }
 
-  console.log(images);
-  console.log("sfsd");
   const [selectImg, setSelectImg] = useState(images[0].id);
 
   return (

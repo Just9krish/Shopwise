@@ -4,6 +4,7 @@ export default function filterReducer(state, action) {
       const prices = action.payload?.map((product) => product.price);
 
       const maxPrice = Math.max(...prices);
+
       return {
         ...state,
         filter_products: [...action.payload],
@@ -51,7 +52,7 @@ export default function filterReducer(state, action) {
       // }
 
       const sortFunctions = {
-        random: () => (Math.random() > 0.5 ? 1 : -1),
+        relevance: (a, b) => b.rating - b.rating,
         ltoh: (a, b) => a.price - b.price,
         htol: (a, b) => b.price - a.price,
       };

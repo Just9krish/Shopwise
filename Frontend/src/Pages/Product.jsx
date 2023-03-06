@@ -19,9 +19,8 @@ export default function Product() {
   const { getSingleProduct, singleProduct, isSingleLoading } =
     useProductContext();
 
-  console.log(singleProduct);
   useEffect(() => {
-    getSingleProduct(`${url}?id=${id}`);
+    getSingleProduct(`${url}/${id}`);
 
     window.scrollTo(0, 0);
   }, []);
@@ -40,16 +39,20 @@ export default function Product() {
             <Slider images={singleProduct.images} />
             <div className="space-y-6">
               <div className="">
-                <h2 className="text-3xl font-black">{singleProduct.name}</h2>
+                <h2 className="text-3xl font-black capitalize">
+                  {singleProduct.name}
+                </h2>
                 <Star
-                  stars={singleProduct.stars}
+                  stars={singleProduct.rating}
                   reviews={singleProduct.reviews}
                 />
               </div>
               <div className="">
                 <p className="text-gray-400">
-                  MRP:
-                  <del>{formattedPrice(singleProduct.price + 250000)}</del>
+                  MRP:{" "}
+                  <del>
+                    {formattedPrice(parseInt(singleProduct.price) + 250000)}
+                  </del>
                 </p>
                 <p className="text-green-800 font-black">
                   Deal of the day {formattedPrice(singleProduct.price)}
@@ -81,8 +84,11 @@ export default function Product() {
                     {singleProduct.stock > 0 ? "Available" : "Not-Available"}
                   </span>
                 </p>
-                <p className="text-sm">Brand: {singleProduct.company}</p>
-                <p className="text-sm">Product id: {singleProduct.id}</p>
+                <p className="text-sm capitalize">
+                  Brand:{" "}
+                  <span className="font-bold">{singleProduct.company}</span>
+                </p>
+                <p className="text-sm">Product id: {singleProduct._id}</p>
               </div>
               <hr className="max-w-full w-[90%] bg-gray-100" />
               <div>

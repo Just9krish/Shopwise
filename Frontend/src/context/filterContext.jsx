@@ -8,7 +8,7 @@ const initialState = {
   filter_products: [],
   all_products: [],
   grid_view: true,
-  sort_value: "random",
+  sort_value: "relevance",
   filters: {
     filterText: "",
     category: "all",

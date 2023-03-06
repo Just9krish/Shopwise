@@ -28,7 +28,7 @@ export default function ColorPicker({ colors, style, setFilterValue }) {
     }
     return (
       <button
-        className={`w-6 h-6 rounded-full cursor-pointer relative ${
+        className={`w-6 h-6 rounded-full border shadow-2xl cursor-pointer relative ${
           selected ? "opacity-100" : "opacity-70"
         }`}
         name="color"
@@ -39,7 +39,11 @@ export default function ColorPicker({ colors, style, setFilterValue }) {
         onClick={(e) => handleClick(e, color)}
       >
         {selected && (
-          <div className="absolute top-0 left-0 text-lg bottom-0 right-0 text-white flex justify-center items-center">
+          <div
+            className={`absolute top-0 left-0 text-lg bottom-0 right-0 ${
+              color === "#ffffff" ? "text-black" : "text-white"
+            }  flex justify-center items-center`}
+          >
             <BsCheck />
           </div>
         )}
@@ -49,7 +53,7 @@ export default function ColorPicker({ colors, style, setFilterValue }) {
   return (
     <div className={!style ? "flex items-center gap-6" : "space-y-3"}>
       <p className="font-light">Select a color:</p>
-      <div className="flex gap-4 items-center">
+      <div className="flex gap-6 flex-wrap items-center">
         {colors?.map((color, idx) => (
           <ColorSquare
             key={idx}
