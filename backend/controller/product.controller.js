@@ -6,49 +6,51 @@ async function getAllProducts(req, res, next) {
   try {
     const products = await Product.find();
 
-    if (!products) {
-      res
-        .status(400)
-        .json({ success: false, message: "Can not get the products" });
+    if (products.length === 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: "No products found" });
     }
 
     res.status(200).json({ success: true, data: products });
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    console.error(err);
+    res.status(500).json({ success: false, message: "Something went wrong" });
   }
 }
 
 async function getProduct(req, res) {
   try {
     const id = req.params.id;
-
     if (!isValid(id)) {
-      return res.status(404).json({
+      return res.status(400).json({
         success: false,
-        message: "Product is not found with given Id",
+        message: "Invalid product ID",
       });
     }
-    const product = await Product.findOne({ _id: id });
+    const product = await Product.findById(id);
 
     if (!product) {
       return res.status(404).json({
         success: false,
-        message: "Product is not found with given id",
+        message: "Product not found",
       });
     }
 
     res.status(200).json({ success: true, data: product });
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    console.error(err);
+    res.status(500).json({ success: false, message: "Something went wrong" });
   }
 }
 
 async function addProduct(req, res) {
   try {
-    const images = req.files.map((file) => ({
-      url: `http://${req.hostname}:3000/${file.path.replace(/^public/, "")}`,
-      name: file.originalname,
-    }));
+    const images =
+      req.files?.map((file) => ({
+        url: `http://${req.hostname}:3000/${file.path.replace(/^public/, "")}`,
+        name: file.originalname,
+      })) || [];
 
     const product = await Product.create({
       name: req.body.name,
@@ -62,21 +64,17 @@ async function addProduct(req, res) {
       trending: req.body.trending,
       company: req.body.company,
       stock: req.body.stock,
-      colors: req.body.colors.split(","),
+      colors: req.body.colors?.split(",") || [],
     });
 
-    if (!product) {
-      return res.status(500).json({
-        success: false,
-        message: "Error occur, product cannot be added right now",
-      });
-    }
-
-    res
-      .status(201)
-      .json({ success: true, message: "Product is added into database" });
+    res.status(201).json({
+      success: true,
+      message: "Product added to database",
+      data: product,
+    });
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    console.error(err);
+    res.status(500).json({ success: false, message: "Something went wrong" });
   }
 }
 
@@ -84,25 +82,38 @@ async function editProduct(req, res) {
   try {
     const id = req.params.id;
 
-    if (typeof req.body == undefined || req.params.id == null) {
+    if (!isValid(id)) {
       return res
         .status(400)
-        .json({ success: false, message: "Bad request, check request" });
+        .json({ success: false, message: "Invalid product ID" });
+    }
+
+    if (!req.body) {
+      return res.json(400).json({
+        success: false,
+        message: "Bad request, request body is missing",
+      });
     }
 
     const product = await Product.findOneAndUpdate({ _id: id }, req.body, {
       new: true,
     });
+
     if (!product) {
-      return res
-        .status(500)
-        .json({ success: false, message: "Can't update right now" });
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
     }
-    res
-      .status(200)
-      .json({ success: true, message: "updated successfully", product });
+
+    res.status(200).json({
+      success: true,
+      message: "Product updated successfully",
+      data: product,
+    });
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    console.error(err);
+    res.status(500).json({ success: false, message: "Something went wrong" });
   }
 }
 
@@ -119,17 +130,25 @@ async function deleteProduct(req, res) {
     if (!isValid(id)) {
       res.status(400).json({
         status: false,
-        message: "Id is different check before sending it.",
+        message: "Invalid product ID",
       });
     }
 
     const product = await Product.findOneAndDelete({ _id: id });
 
+    if (!product) {
+      return res.status(404).json({
+        status: false,
+        message: "Product not found",
+      });
+    }
+
     res
       .status(200)
       .json({ status: true, message: "Product is deleted successfully" });
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    console.error(err);
+    res.status(500).json({ success: false, message: "Something went wrong" });
   }
 }
 
@@ -137,16 +156,17 @@ async function getFeaturedProducts(req, res) {
   try {
     const featuredProducts = await Product.find({ featured: true });
 
-    if (!featuredProducts) {
+    if (featuredProducts.length === 0) {
       return res.status(404).json({
         success: false,
-        message: "There is not single featued products",
+        message: "No featured products found",
       });
     }
 
     res.status(200).json({ success: true, data: featuredProducts });
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    console.error(err);
+    res.status(500).json({ success: false, message: "Something went wrong" });
   }
 }
 
@@ -154,16 +174,17 @@ async function getTrendingProducts(req, res) {
   try {
     const trendingProducts = await Product.find({ trending: true });
 
-    if (!trendingProducts) {
+    if (trendingProducts.length === 0) {
       return res.status(404).json({
         success: false,
-        message: "There is not single trending products",
+        message: "No trending products found",
       });
     }
 
     res.status(200).json({ success: true, data: trendingProducts });
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    console.log(err);
+    res.status(500).json({ success: false, message: "Something went wrong" });
   }
 }
 
@@ -171,15 +192,16 @@ async function getProductCategories(req, res) {
   try {
     const categories = await Product.distinct("category");
 
-    if (!categories) {
-      res
+    if (!categories || categories.length === 0) {
+      return res
         .status(400)
-        .json({ success: false, message: "Cannot get categories" });
+        .json({ success: false, message: "No category is found" });
     }
 
     res.status(200).json(categories);
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    console.log(err);
+    res.status(500).json({ success: false, message: "Something went wrong" });
   }
 }
 
@@ -190,13 +212,22 @@ async function getProductsInCategory(req, res) {
     if (!category) {
       return res
         .status(400)
-        .json({ success: false, message: "category doesn't provide" });
+        .json({ success: false, message: "Category parameter not provided" });
     }
 
     const categoryProducts = await Product.find({ category });
-    res.status(200).json(categoryProducts);
+
+    if (!categoryProducts || categoryProducts.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: `No products found for category '${category}'`,
+      });
+    }
+
+    res.status(200).json({ success: true, data: categoryProducts });
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    console.log(err);
+    res.status(500).json({ success: false, message: "Something went wrong" });
   }
 }
 
@@ -204,13 +235,14 @@ async function getProductCompanies(req, res) {
   try {
     const companies = await Product.distinct("company");
 
-    if (!companies) {
-      res.status(400).json({ success: false, message: "Cannot get companies" });
+    if (!companies || companies.length === 0) {
+      res.status(400).json({ success: false, message: "No companies found" });
     }
 
     res.status(200).json(companies);
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    console.log(err);
+    res.status(500).json({ success: false, message: "Something went wrong" });
   }
 }
 
@@ -221,44 +253,65 @@ async function getProductsInCompany(req, res) {
     if (!company) {
       return res
         .status(400)
-        .json({ success: false, message: "category doesn't provide" });
+        .json({ success: false, message: "Company name not provided" });
     }
 
     const companyProducts = await Product.find({ company });
+
+    if (!companyProducts || companyProducts.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: `No products found for company '${company}'`,
+      });
+    }
+
     res.status(200).json(companyProducts);
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    console.log(err);
+    res.status(500).json({ success: false, message: "Something went wrong" });
   }
 }
 
 async function getProductColors(req, res) {
+  console.log("lll");
   try {
     const colors = await Product.distinct("colors");
 
-    if (!colors) {
+    if (!colors || colors === 0) {
       res.status(400).json({ success: false, message: "Cannot get colors" });
     }
 
     res.status(200).json(colors);
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    console.log(err);
+    res.status(500).json({ success: false, message: "Something went wrong" });
   }
 }
 
 async function getProductsInColors(req, res) {
+  console.log("sds");
   try {
-    const colors = req.params.colors;
+    const color = req.params.color;
 
-    if (!colors) {
+    if (!color) {
       return res
         .status(400)
-        .json({ success: false, message: "category doesn't provide" });
+        .json({ success: false, message: "color is not provided" });
     }
 
-    const colorsProducts = await Product.find({ colors });
+    const colorsProducts = await Product.find({ colors: { $in: [color] } });
+
+    if (!colorsProducts || colorsProducts.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: `No products found for color '${color}'`,
+      });
+    }
+
     res.status(200).json(colorsProducts);
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    console.log(err);
+    res.status(500).json({ success: false, message: "Something went wrong" });
   }
 }
 
@@ -271,9 +324,9 @@ module.exports = {
   getTrendingProducts,
   getProductCategories,
   getProductsInCategory,
-  editProduct,
   getProductCompanies,
-  getProductColors,
   getProductsInCompany,
+  getProductColors,
   getProductsInColors,
+  editProduct,
 };

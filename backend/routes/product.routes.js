@@ -1,5 +1,6 @@
 const express = require("express");
 const upload = require("../controller/upload.controller");
+const auth = require("../middleware/require.auth");
 
 const router = express.Router();
 
@@ -22,12 +23,12 @@ const {
 router.get("/", getAllProducts);
 router.get("/featured", getFeaturedProducts);
 router.get("/trending", getTrendingProducts);
-router.get("/categories", getProductCategories);
 router.get("/categories/:category", getProductsInCategory);
-router.get("/companies", getProductCompanies);
+router.get("/categories", getProductCategories);
 router.get("/companies/:company", getProductsInCompany);
+router.get("/companies", getProductCompanies);
+router.get("/colors/:color", getProductsInColors);
 router.get("/colors", getProductColors);
-router.get("/colors/:colors", getProductsInColors);
 router.get("/:id", getProduct);
 
 router.post("/", upload.array("images"), addProduct);
@@ -35,6 +36,6 @@ router.post("/", upload.array("images"), addProduct);
 router.put("/:id", editProduct);
 router.patch("/:id", editProduct);
 
-router.delete("/:id", deleteProduct);
+router.delete("/:id", auth("admin"), deleteProduct);
 
 module.exports = router;

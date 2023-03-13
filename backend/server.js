@@ -24,9 +24,17 @@ app.use(express.json());
 
 // import routes
 const productRoute = require("./routes/product.routes");
+const userRoute = require("./routes/user.routes");
 
 // routes
 app.use("/api/products", productRoute);
+app.use("/api/user", userRoute);
+
+// error handling
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Something is wrong!");
+});
 
 // mongoose
 mongoose.set("strictQuery", false);
